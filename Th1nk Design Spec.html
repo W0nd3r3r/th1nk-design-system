@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Th1nk Design Spec — Web + Slide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TH1NK DESIGN SPEC
+   Two layers in one document:
+     1. WEB layer — fluid tokens for HTML pages (th1nk.co.za + Th1nk Online)
+     2. SLIDE layer — fixed-canvas tokens for 1920x1080 decks (HTML + PPT)
+   Source: Th1nk Online design system + Hidden Wiring deck CSS.
+   ============================================================ */
+
+:root {
+  /* === BRAND CORE ============================================ */
+  --ink:        #111111;
+  --navy:       #1A2535;
+  --charcoal:   #3A3A3A;
+  --dark-alt:   #2D2D2D;
+  --muted:      #6B7280;
+  --white:      #FFFFFF;
+
+  /* === BRAND ACCENTS ========================================= */
+  --amber:      #EF8F38;  /* PRIMARY accent — CTA, highlight, signature */
+  --gold:       #F4A623;  /* warm pair to amber, used in gradients */
+  --teal:       #59C0D9;  /* cool accent — process / tech / "different" */
+  --green:      #57C26D;  /* success / tech secondary */
+  --purple:     #AE70DE;  /* thought leadership accent */
+  --rose:       #D86F8C;  /* used sparingly on five-stages page */
+  --red-soft:   #DE6868;  /* alert / warning */
+  --yellow:     #F4CD58;
+  --gold-warm:  #B9A478;
+
+  /* === SURFACES ============================================== */
+  --bg:         #FFFFFF;
+  --panel:      #F5F7FA;  /* neutral panel */
+  --warm:       #FFF8F0;  /* warm panel (amber-tinted) */
+  --panel-5:    #F4F4F4;  /* WP accent-5 */
+  --border:     #E5E7EB;
+
+  /* === SEMANTIC FG/BG ======================================== */
+  --fg-1:       var(--ink);
+  --fg-2:       var(--navy);
+  --fg-3:       var(--muted);
+  --fg-invert:  var(--white);
+  --bg-1:       var(--white);
+  --bg-2:       var(--panel);
+  --bg-3:       var(--warm);
+  --bg-dark:    var(--navy);
+
+  /* === LINK ================================================== */
+  --link:       #1F86C7;
+  --link-hover: var(--teal);
+
+  /* === RADII ================================================= */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r:    12px;
+  --r-lg: 20px;
+  --r-pill: 100px;
+
+  /* === SHADOWS =============================================== */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:         0 4px 16px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:      0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-amber:   0 4px 14px rgba(239,143,56,0.35);
+  --shadow-natural: 6px 6px 9px rgba(0,0,0,0.2);
+  --shadow-sharp:   6px 6px 0px rgba(0,0,0,0.2);
+
+  /* === WEB SPACING (clamp-based rhythm) ====================== */
+  --space-20: 10px;
+  --space-30: 20px;
+  --space-40: 30px;
+  --space-50: clamp(30px, 5vw, 50px);
+  --space-60: clamp(30px, 7vw, 70px);
+  --space-70: clamp(50px, 7vw, 90px);
+  --space-80: clamp(70px, 10vw, 140px);
+
+  /* === WEB LAYOUT ============================================ */
+  --max-w:        1120px;  /* programme site container */
+  --max-w-wide:   1340px;  /* corp site wide content */
+  --max-w-read:   800px;   /* corp site reading content */
+
+  /* === FONTS ================================================= */
+  --font-sans:    'Inter', system-ui, -apple-system, Arial, sans-serif;
+  --font-display: 'Montserrat', 'Inter', system-ui, sans-serif;
+  --font-mono:    'Fira Code', ui-monospace, monospace;
+
+  /* === WEB FLUID TYPE SCALE ================================== */
+  --fs-xs:   0.75rem;
+  --fs-sm:   0.875rem;
+  --fs-base: clamp(1rem, 1rem + ((1vw - 0.2rem) * 0.078), 1.05rem);
+  --fs-md:   1.05rem;
+  --fs-lg:   clamp(1.125rem, 1.125rem + ((1vw - 0.2rem) * 0.392), 1.375rem);
+  --fs-xl:   clamp(1.5rem, 1.5rem + ((1vw - 0.2rem) * 0.596), 1.88rem);
+  --fs-2xl:  clamp(1.6rem, 3vw, 2.2rem);
+  --fs-3xl:  clamp(2.2rem, 5vw, 3.5rem);
+
+  --lh-tight:  1.18;
+  --lh-snug:   1.25;
+  --lh-normal: 1.4;
+  --lh-body:   1.65;
+  --lh-loose:  1.7;
+
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.08em;
+  --tracking-widest: 0.12em;
+
+  /* === SLIDE LAYER (1920x1080 / 13.333" x 7.5") ============== */
+  /* Type scale in absolute px (HTML deck) and pt (PowerPoint). */
+  /* px to pt conversion is approx 0.5 (1pt = 1.333px @ 96dpi). */
+
+  --t-display:  96px;   /* 60pt PPT — covers, closers, signatures */
+  --t-title:    72px;   /* 44pt PPT — slide titles */
+  --t-large:    56px;   /* 34pt PPT — featured statement, big quote */
+  --t-subtitle: 44px;   /* 28pt PPT — card titles, secondary heading */
+  --t-body:     34px;   /* 17pt PPT — body copy, paragraph */
+  --t-small:    28px;   /* 14pt PPT — caption, card body, footnote */
+  --t-eyebrow:  24px;   /* 12pt PPT — eyebrow, label, decade-age */
+  --t-stat:     200px;  /* 96pt PPT — single big-number stat */
+  --t-mega:     168px;  /* 96pt PPT — cover + section divider only */
+
+  /* Slide padding (HTML deck) — fixed pixels at 1920x1080. */
+  --slide-px:   120px;  /* horizontal slide padding */
+  --slide-pt:   100px;  /* top padding */
+  --slide-pb:   80px;   /* bottom padding (footer reserve) */
+  --gap-title:  52px;   /* gap between title and content */
+  --gap-item:   28px;   /* gap between list items */
+
+  /* Slide wordmark / footer */
+  --logo-h:     36px;
+  --logo-top:   48px;
+}
+
+/* ============================================================
+   DOCUMENT STYLES
+   ============================================================ */
+html, body { background: var(--bg-1); margin: 0; }
+body {
+  font-family: var(--font-sans);
+  color: var(--fg-1);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--fg-2);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--lh-snug);
+  font-weight: 700;
+  margin: 0;
+}
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+section.spec { padding: 5rem 0; border-top: 1px solid var(--border); }
+section.spec:first-of-type { border-top: 0; }
+
+.section-head { margin-bottom: 2.5rem; max-width: 800px; }
+.section-head .eyebrow { display:inline-block; margin-bottom: 0.75rem; }
+.section-head h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 0.75rem; }
+.section-head p { color: var(--muted); font-size: var(--fs-lg); margin: 0; }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--amber);
+  background: rgba(239,143,56,0.08);
+  padding: 0.35rem 0.85rem;
+  border: 1px solid rgba(239,143,56,0.2);
+  border-radius: var(--r-pill);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+  background: var(--panel);
+  border-radius: var(--r-sm);
+}
+code { padding: 2px 6px; font-size: 0.9em; }
+pre { padding: 1rem 1.25rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; border: 1px solid var(--border); }
+
+table.spec-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+table.spec-table th, table.spec-table td {
+  text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top;
+}
+table.spec-table th { font-family: var(--font-display); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+table.spec-table td.mono { font-family: var(--font-mono); font-size: 0.85rem; }
+
+.callout {
+  background: var(--warm);
+  border-left: 4px solid var(--amber);
+  padding: 1rem 1.25rem;
+  border-radius: var(--r-sm);
+  margin: 1.5rem 0;
+}
+.callout strong { color: var(--navy); }
+
+.grid { display: grid; gap: 1.25rem; }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.grid.cols-6 { grid-template-columns: repeat(6, 1fr); }
+@media (max-width: 900px) {
+  .grid.cols-3, .grid.cols-4, .grid.cols-6 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Colour swatch */
+.swatch { display: flex; flex-direction: column; gap: 0.5rem; }
+.swatch .chip { aspect-ratio: 3 / 2; border-radius: var(--r); border: 1px solid var(--border); }
+.swatch .name { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--navy); }
+.swatch .hex  { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.swatch .role { font-size: 0.85rem; color: var(--muted); }
+
+/* Type sample */
+.type-row {
+  display: grid; grid-template-columns: 200px 1fr; gap: 1.5rem; align-items: baseline;
+  padding: 1rem 0; border-bottom: 1px dashed var(--border);
+}
+.type-row .meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+.type-row .sample { color: var(--navy); }
+
+/* Spacing visualiser */
+.space-bar { background: var(--amber); height: 18px; border-radius: 4px; opacity: 0.9; margin-bottom: 0.5rem; }
+.space-row { display: flex; gap: 1rem; align-items: center; padding: 0.4rem 0; }
+.space-row .label { font-family: var(--font-mono); font-size: 0.85rem; width: 220px; color: var(--muted); }
+
+/* Aspect ratio boxes */
+.ratio-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; color: var(--navy);
+}
+
+/* Slide preview tile */
+.slide-tile {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--r);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px 12px;
+  box-sizing: border-box;
+  box-shadow: var(--shadow);
+}
+.slide-tile.light { background: var(--white); color: var(--navy); }
+.slide-tile.panel { background: var(--panel); color: var(--navy); }
+.slide-tile .logo-dot { font-family: var(--font-display); font-weight: 900; font-size: 9px; letter-spacing: 0.04em; color: rgba(255,255,255,0.55); }
+.slide-tile.light .logo-dot, .slide-tile.panel .logo-dot { color: rgba(0,0,0,0.4); }
+.slide-tile .eb { font-family: var(--font-display); font-weight: 700; font-size: 7px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-top: 6px; }
+.slide-tile .tt { font-family: var(--font-display); font-weight: 800; font-size: 17px; line-height: 1.1; letter-spacing: -0.01em; margin-top: 6px; }
+.slide-tile .bd { font-family: var(--font-sans); font-size: 9px; line-height: 1.4; margin-top: 6px; max-width: 80%; opacity: 0.85; }
+.slide-tile.light .bd, .slide-tile.panel .bd { color: var(--muted); }
+
+.slide-tile .bar { width: 22px; height: 3px; background: linear-gradient(90deg, var(--amber), var(--gold)); border-radius: 2px; margin-top: 6px; }
+
+.tile-meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); margin-top: 0.5rem; }
+.tile-name { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; color: var(--navy); margin-top: 0.5rem; }
+
+/* Layout tile sub-elements */
+.t-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px; flex: 1; margin-top: 6px; }
+.t-card { background: rgba(255,255,255,0.08); border-top: 2px solid var(--amber); border-radius: 3px; padding: 4px; font-family: var(--font-display); font-size: 6px; }
+.t-card.teal { border-top-color: var(--teal); }
+.t-card.navy { border-top-color: var(--navy); }
+.slide-tile.light .t-card, .slide-tile.panel .t-card { background: rgba(0,0,0,0.04); }
+
+.t-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex: 1; margin-top: 6px; align-items: stretch; }
+.t-col-img { background: rgba(255,255,255,0.15) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 56"><rect width="100" height="56" fill="%23999"/></svg>') center/cover; border-radius: 3px; }
+.slide-tile.light .t-col-img, .slide-tile.panel .t-col-img { background-color: rgba(0,0,0,0.08); }
+
+.t-stat { display: flex; align-items: center; gap: 12px; flex: 1; margin-top: 6px; }
+.t-stat .n { font-family: var(--font-display); font-weight: 900; font-size: 40px; line-height: 1; color: var(--amber); }
+.t-stat .l { font-family: var(--font-sans); font-size: 8px; line-height: 1.3; opacity: 0.8; }
+
+.t-quote { font-family: var(--font-display); font-weight: 300; font-size: 12px; line-height: 1.3; flex: 1; display: flex; align-items: center; margin-top: 6px; }
+.t-quote strong { color: var(--amber); font-weight: 700; }
+
+.t-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; flex: 1; margin-top: 6px; }
+.t-grid > div { background: rgba(255,255,255,0.08); border-radius: 3px; padding: 4px; font-family: var(--font-display); font-size: 6px; }
+.slide-tile.light .t-grid > div, .slide-tile.panel .t-grid > div { background: rgba(0,0,0,0.04); }
+.t-grid > div:nth-child(1) { border-top: 2px solid var(--amber); }
+.t-grid > div:nth-child(2) { border-top: 2px solid var(--teal); }
+.t-grid > div:nth-child(3) { border-top: 2px solid var(--green); }
+.t-grid > div:nth-child(4) { border-top: 2px solid var(--purple); }
+
+.t-time { display: flex; gap: 0; align-items: center; flex: 1; margin-top: 8px; position: relative; }
+.t-time::before { content: ''; position: absolute; top: 6px; left: 4%; right: 4%; height: 2px; background: rgba(255,255,255,0.2); }
+.slide-tile.light .t-time::before, .slide-tile.panel .t-time::before { background: rgba(0,0,0,0.15); }
+.t-time-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; position: relative; z-index: 1; margin: 0 auto; }
+.t-time-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: var(--font-display); font-size: 6px; }
+
+.t-full {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,37,53,0.85), rgba(45,45,45,0.85)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225"><rect width="400" height="225" fill="%23555"/></svg>') center/cover;
+}
+
+/* Briefing block */
+.briefing {
+  background: var(--navy); color: var(--white);
+  padding: 2rem 2.25rem; border-radius: var(--r-lg);
+  margin-top: 1.5rem;
+}
+.briefing .eyebrow { background: rgba(239,143,56,0.2); border-color: rgba(239,143,56,0.4); }
+.briefing pre { background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.1); margin-top: 1rem; }
+.briefing h3 { color: var(--white); margin: 0 0 0.5rem; }
+
+/* TOC */
+.toc { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 50; }
+.toc .inner { display: flex; gap: 1.25rem; padding: 0.75rem 0; flex-wrap: wrap; font-size: 0.85rem; }
+.toc a { color: var(--muted); text-decoration: none; font-weight: 500; }
+.toc a:hover { color: var(--amber); }
+
+header.hero {
+  background: linear-gradient(135deg, var(--navy), var(--dark-alt));
+  color: var(--white);
+  padding: 5rem 0 4rem;
+}
+header.hero h1 { color: var(--white); font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 300; line-height: 1.1; max-width: 800px; margin-bottom: 1rem; }
+header.hero h1 strong { font-weight: 800; color: var(--amber); }
+header.hero p { color: rgba(255,255,255,0.75); font-size: var(--fs-lg); max-width: 720px; }
+header.hero .meta { font-family: var(--font-mono); font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 1.5rem; }
+
+footer.foot { padding: 3rem 0; background: var(--navy); color: rgba(255,255,255,0.6); font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow" style="background:rgba(239,143,56,0.18); border-color:rgba(239,143,56,0.4);">Th1nk Design Spec — v1.0</span>
+    <h1 style="margin-top:1.25rem;">One spec. <strong>Two layers.</strong><br>Web tokens and slide frame, together.</h1>
+    <p>Source of truth for the Th1nk visual system. The web layer governs HTML pages. The slide layer governs 1920x1080 decks (HTML and PowerPoint). Built from the live Th1nk Online tokens and the Hidden Wiring deck CSS.</p>
+    <div class="meta">Last revised: 2026-05-15 &nbsp;·&nbsp; Owner: Steve Whitford &nbsp;·&nbsp; Use: brief AI builders and human designers</div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap inner">
+    <a href="#briefing">Briefing block</a>
+    <a href="#colour">Colour</a>
+    <a href="#type">Typography</a>
+    <a href="#web-type">Web type scale</a>
+    <a href="#slide-type">Slide type scale</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#shadow">Shadow + radius</a>
+    <a href="#image">Image ratios</a>
+    <a href="#slide-frame">Slide frame</a>
+    <a href="#templates">Slide templates</a>
+    <a href="#components">Components</a>
+    <a href="#gaps">Known gaps</a>
+  </div>
+</nav>
+
+<!-- ==============================================================
+     SECTION 0 — BRIEFING BLOCK
+     The single most important section. This is what gets pasted into
+     Claude Design (or any AI builder) at the start of a new build.
+     ============================================================== -->
+<section class="spec" id="briefing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Briefing block</span>
+      <h2>The paste-once instruction for any AI builder</h2>
+      <p>Copy the block below into the start of any new conversation where you're asking an AI to build a Th1nk page or deck. It tells the builder what to read and what rules apply.</p>
+    </div>
+
+    <div class="briefing">
+      <span class="eyebrow">Paste-ready</span>
+      <h3 style="margin-top:0.75rem;">Th1nk design briefing — for AI builders</h3>
+      <pre>You are building inside the Th1nk visual system. Before writing any HTML or CSS:
+
+1. Read `Th1nk Design Spec.html` end-to-end. The :root block is the authoritative token set.
+2. Use ONLY the named tokens. Do not introduce new colours, font sizes, or spacing values without flagging the gap to me first.
+3. For HTML pages (web layer): use the fluid type scale (--fs-xs..--fs-3xl) and clamp-based spacing. Container max-width is --max-w (1120px) for programme pages, --max-w-wide (1340px) for wide content.
+4. For decks at 1920x1080 (slide layer): use the absolute slide type scale (--t-mega 168px ONLY on cover + section divider, --t-display 96px, --t-title 72px, --t-large 56px, --t-subtitle 44px, --t-body 34px, --t-small 28px, --t-eyebrow 24px). Slide padding is --slide-px 120px, --slide-pt 100px, --slide-pb 80px.
+5. Every slide must pick one named template from section "Slide templates" (cover, divider, statement, big-stat, three-cards, two-column, two-by-two, timeline, layered-list, quote, full-bleed-image, question-prompt). Do not invent bespoke layouts. If none fit, ask before extending.
+6. Slide titles use Montserrat 800; body uses Inter 400. Eyebrows are uppercase Montserrat 700, --amber, 0.12-0.14em tracking.
+7. Wordmark goes top-left, 36px high, 48px from top, inside slide padding (--slide-px).
+8. Image aspect ratios are RECOMMENDED, not enforced. Prefer 16:9 (full-bleed), 4:3 (card), 1:1 (square), 4:5 (portrait). If you use another ratio, contain it inside a fixed box; never let it dictate the slide layout.
+9. Work slide by slide for anything visual. Confirm the template choice before placing content.
+10. When unsure, say "this is not in the spec — should I extend it, or use the closest match?" Do not silently invent.</pre>
+    </div>
+
+    <div class="callout">
+      <strong>Note on enforcement.</strong> This spec recommends but does not lock image aspect ratios — by choice. If you find slide drift returning because images bring their own dimensions, the lever is to tighten rule 8 in the briefing block from "RECOMMENDED" to "MUST be one of 16:9, 4:3, 1:1, or 4:5; crop the image to fit." Change it in one place, here.
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 1 — COLOUR
+     ============================================================== -->
+<section class="spec" id="colour">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Colour</span>
+      <h2>Brand palette and surfaces</h2>
+      <p>Amber is the signature. Navy is the anchor. Teal is the differentiator accent. Everything else is supporting.</p>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">Core ink + brand accents</h3>
+    <div class="grid cols-6">
+      <div class="swatch"><div class="chip" style="background:var(--ink);"></div><div class="name">Ink</div><div class="hex">#111111</div><div class="role">Primary text</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--navy);"></div><div class="name">Navy</div><div class="hex">#1A2535</div><div class="role">Headings, dark surface</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--charcoal);"></div><div class="name">Charcoal</div><div class="hex">#3A3A3A</div><div class="role">Secondary dark</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--dark-alt);"></div><div class="name">Dark-alt</div><div class="hex">#2D2D2D</div><div class="role">Pair w/ navy in gradients</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--muted);"></div><div class="name">Muted</div><div class="hex">#6B7280</div><div class="role">Body secondary, captions</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--white); border:1px solid var(--border);"></div><div class="name">White</div><div class="hex">#FFFFFF</div><div class="role">Base background</div></div>
+    </div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Brand accents</h3>
+    <div class="grid cols-4">
+      <div class="swatch"><div class="chip" style="background:var(--amber);"></div><div class="name">Amber <small style="color:var(--amber);">(primary)</small></div><div class="hex">#EF8F38</div><div class="role">CTA, highlight, signature accent</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--gold);"></div><div class="name">Gold</div><div class="hex">#F4A623</div><div class="role">Warm pair to amber (gradients)</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--teal);"></div><div class="name">Teal</div><div class="hex">#59C0D9</div><div class="role">Cool accent — process / tech / "different"</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--green);"></div><div class="name">Green</div><div class="hex">#57C26D</div><div class="role">Success / tech secondary</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--purple);"></div><div class="name">Purple</div><div class="hex">#AE70DE</div><div class="role">Thought leadership accent</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--rose);"></div><div class="name">Rose</div><div class="hex">#D86F8C</div><div class="role">Used sparingly</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--red-soft);"></div><div class="name">Red-soft</div><div class="hex">#DE6868</div><div class="role">Alert / warning</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--yellow);"></div><div class="name">Yellow</div><div class="hex">#F4CD58</div><div class="role">Highlight accent</div></div>
+    </div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Surfaces</h3>
+    <div class="grid cols-4">
+      <div class="swatch"><div class="chip" style="background:var(--bg); border:1px solid var(--border);"></div><div class="name">Bg / White</div><div class="hex">#FFFFFF</div><div class="role">Base background</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--panel);"></div><div class="name">Panel</div><div class="hex">#F5F7FA</div><div class="role">Neutral panel section</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--warm);"></div><div class="name">Warm</div><div class="hex">#FFF8F0</div><div class="role">Amber-tinted callout panel</div></div>
+      <div class="swatch"><div class="chip" style="background:var(--bg-dark);"></div><div class="name">Bg-dark / Navy</div><div class="hex">#1A2535</div><div class="role">Dark section background</div></div>
+    </div>
+
+    <div class="callout" style="margin-top:2rem;">
+      <strong>Usage rule.</strong> One primary accent per slide or section. Amber is the default. Teal is reserved for "process / tech / contrast" framing. Green, purple, rose, red-soft are for category coding (e.g. 4-up grids); avoid using them as primary CTA accents.
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 2 — TYPOGRAPHY (fonts only)
+     ============================================================== -->
+<section class="spec" id="type">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Typography</span>
+      <h2>Two families. One mono.</h2>
+      <p>Montserrat for display. Inter for body. Fira Code for the rare technical block. No other fonts.</p>
+    </div>
+
+    <table class="spec-table">
+      <thead>
+        <tr><th>Role</th><th>Family</th><th>Weight range</th><th>Used for</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Display</td><td class="mono">Montserrat</td><td>300 / 600 / 700 / 800 / 900</td><td>All headings, eyebrows, big stats, slide titles. Track tight (-0.02em).</td></tr>
+        <tr><td>Body</td><td class="mono">Inter</td><td>300 / 400 / 500 / 600 / 700</td><td>All body, captions, table cells, slide body text.</td></tr>
+        <tr><td>Mono</td><td class="mono">Fira Code</td><td>400 / 500</td><td>Technical references, token names, code samples.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Slide-specific.</strong> In PowerPoint, theme fonts must be set to Montserrat (Heading) and Inter (Body). Do not let the default fall back to Calibri / Aptos / Segoe UI. Your older decks (e.g. Th1nk Uber Deck.pptx) mix five families across one deck — this is the canonical fix.
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 3 — WEB TYPE SCALE (fluid clamp)
+     ============================================================== -->
+<section class="spec" id="web-type">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Web type scale</span>
+      <h2>Fluid scale for HTML pages</h2>
+      <p>Eight steps, all clamp-based. Use the token, not the raw value. Web pages should never hardcode font-size — let the scale do the responsive work.</p>
+    </div>
+
+    <div class="type-row"><div class="meta">--fs-3xl<br>clamp(2.2rem, 5vw, 3.5rem)<br>~35-56px</div><div class="sample" style="font-family:var(--font-display); font-size:var(--fs-3xl); font-weight:300; line-height:1.1; letter-spacing:-0.02em;">Hero headlines and section openers.</div></div>
+    <div class="type-row"><div class="meta">--fs-2xl<br>clamp(1.6rem, 3vw, 2.2rem)<br>~26-35px</div><div class="sample" style="font-family:var(--font-display); font-size:var(--fs-2xl); font-weight:700;">Section H2 headings.</div></div>
+    <div class="type-row"><div class="meta">--fs-xl<br>clamp(1.5rem, …, 1.88rem)<br>~24-30px</div><div class="sample" style="font-family:var(--font-display); font-size:var(--fs-xl); font-weight:700;">Sub-heading / large card title.</div></div>
+    <div class="type-row"><div class="meta">--fs-lg<br>clamp(1.125rem, …, 1.375rem)<br>~18-22px</div><div class="sample" style="font-family:var(--font-display); font-size:var(--fs-lg); font-weight:600;">Card title / large body lead.</div></div>
+    <div class="type-row"><div class="meta">--fs-md<br>1.05rem (~17px)</div><div class="sample" style="font-size:var(--fs-md);">Sub-body, slightly emphasised paragraph.</div></div>
+    <div class="type-row"><div class="meta">--fs-base<br>clamp(1rem, …, 1.05rem)<br>~16-17px</div><div class="sample" style="font-size:var(--fs-base);">Default body text. The size paragraphs render at by default.</div></div>
+    <div class="type-row"><div class="meta">--fs-sm<br>0.875rem (~14px)</div><div class="sample" style="font-size:var(--fs-sm);">Captions, table cells, secondary notes.</div></div>
+    <div class="type-row"><div class="meta">--fs-xs<br>0.75rem (12px)</div><div class="sample" style="font-size:var(--fs-xs); letter-spacing:0.12em; text-transform:uppercase; font-weight:700;">Eyebrow label, uppercase.</div></div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Line-height and tracking</h3>
+    <table class="spec-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">--lh-tight</td><td class="mono">1.18</td><td>Display headlines.</td></tr>
+        <tr><td class="mono">--lh-snug</td><td class="mono">1.25</td><td>H2-H4 headings.</td></tr>
+        <tr><td class="mono">--lh-normal</td><td class="mono">1.4</td><td>Compact paragraph.</td></tr>
+        <tr><td class="mono">--lh-body</td><td class="mono">1.65</td><td>Default paragraph.</td></tr>
+        <tr><td class="mono">--lh-loose</td><td class="mono">1.7</td><td>Long-form reading content.</td></tr>
+        <tr><td class="mono">--tracking-tight</td><td class="mono">-0.02em</td><td>Headings (Montserrat).</td></tr>
+        <tr><td class="mono">--tracking-wide</td><td class="mono">0.08em</td><td>Track-tag, button label.</td></tr>
+        <tr><td class="mono">--tracking-widest</td><td class="mono">0.12em</td><td>Eyebrow, uppercase labels.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 4 — SLIDE TYPE SCALE (absolute, 1920x1080)
+     ============================================================== -->
+<section class="spec" id="slide-type">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Slide type scale</span>
+      <h2>Absolute pixel scale for 1920x1080 decks</h2>
+      <p>Lifted from the Hidden Wiring deck. Eight named sizes, both in px (for HTML decks) and pt (for PowerPoint). Use the token, not the raw number.</p>
+    </div>
+
+    <table class="spec-table">
+      <thead><tr><th>Token</th><th>HTML (px)</th><th>PPT (pt)</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">--t-stat</td><td class="mono">200px</td><td class="mono">96pt</td><td>Single huge stat. Display weight 900. Amber by default.</td></tr>
+        <tr><td class="mono">--t-mega</td><td class="mono">168px</td><td class="mono">96pt</td><td><strong>Cover and section divider only.</strong> Outside the regular scale; reserved for dramatic openers and chapter breaks.</td></tr>
+        <tr><td class="mono">--t-display</td><td class="mono">96px</td><td class="mono">60pt</td><td>Sub-cover and closer signature; second-tier headline.</td></tr>
+        <tr><td class="mono">--t-title</td><td class="mono">72px</td><td class="mono">44pt</td><td>Slide title. Montserrat 800. Use on every content slide.</td></tr>
+        <tr><td class="mono">--t-large</td><td class="mono">56px</td><td class="mono">34pt</td><td>Featured statement, big quote text.</td></tr>
+        <tr><td class="mono">--t-subtitle</td><td class="mono">44px</td><td class="mono">28pt</td><td>Card title, secondary heading.</td></tr>
+        <tr><td class="mono">--t-body</td><td class="mono">34px</td><td class="mono">17pt</td><td>Paragraph body. Inter 400. Readable from back of room.</td></tr>
+        <tr><td class="mono">--t-small</td><td class="mono">28px</td><td class="mono">14pt</td><td>Caption, card body, footnote.</td></tr>
+        <tr><td class="mono">--t-eyebrow</td><td class="mono">24px</td><td class="mono">12pt</td><td>Eyebrow label, decade-age, micro-label. Uppercase Montserrat 700.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Conversion rule.</strong> 1pt &asymp; 1.333px at 96dpi (the PowerPoint default). To go from px to pt: multiply by 0.75. PowerPoint's font size dialog rounds to the nearest 0.5, so accept &plusmn;0.5pt drift between the HTML deck and PPT versions of the same slide.
+    </div>
+
+    <div class="callout">
+      <strong>Why this matters.</strong> Your Intro Talk PPT had body at 14pt — small for projection. The Hidden Wiring HTML deck had body at 34px (~17pt) — readable from the back row. The slide-type scale here resolves that drift by making 34px / 17pt the canonical body. Use it.
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 5 — SPACING
+     ============================================================== -->
+<section class="spec" id="spacing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Spacing</span>
+      <h2>Two rhythms: fluid web, fixed slide</h2>
+      <p>Web spacing flexes with viewport. Slide spacing is fixed because the canvas is fixed.</p>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">Web spacing (fluid)</h3>
+    <div class="space-row"><div class="label">--space-20 &nbsp; 10px</div><div class="space-bar" style="width:10px;"></div></div>
+    <div class="space-row"><div class="label">--space-30 &nbsp; 20px</div><div class="space-bar" style="width:20px;"></div></div>
+    <div class="space-row"><div class="label">--space-40 &nbsp; 30px</div><div class="space-bar" style="width:30px;"></div></div>
+    <div class="space-row"><div class="label">--space-50 &nbsp; 30-50px</div><div class="space-bar" style="width:50px;"></div></div>
+    <div class="space-row"><div class="label">--space-60 &nbsp; 30-70px</div><div class="space-bar" style="width:70px;"></div></div>
+    <div class="space-row"><div class="label">--space-70 &nbsp; 50-90px</div><div class="space-bar" style="width:90px;"></div></div>
+    <div class="space-row"><div class="label">--space-80 &nbsp; 70-140px</div><div class="space-bar" style="width:140px;"></div></div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Slide spacing (fixed at 1920x1080)</h3>
+    <table class="spec-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">--slide-px</td><td class="mono">120px</td><td>Horizontal slide padding (left + right).</td></tr>
+        <tr><td class="mono">--slide-pt</td><td class="mono">100px</td><td>Top padding above slide content (after wordmark).</td></tr>
+        <tr><td class="mono">--slide-pb</td><td class="mono">80px</td><td>Bottom padding (footer reserve).</td></tr>
+        <tr><td class="mono">--gap-title</td><td class="mono">52px</td><td>Space between slide title and content body.</td></tr>
+        <tr><td class="mono">--gap-item</td><td class="mono">28px</td><td>Space between items in a list, card-to-card vertical gap.</td></tr>
+        <tr><td class="mono">card gap (horizontal)</td><td class="mono">40px</td><td>Gap between three-card row or two-by-two grid cards.</td></tr>
+        <tr><td class="mono">card padding</td><td class="mono">52px 44px</td><td>Internal padding on a slide card.</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:2.5rem 0 1rem;">Web max-widths</h3>
+    <table class="spec-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">--max-w</td><td class="mono">1120px</td><td>Default programme-site container.</td></tr>
+        <tr><td class="mono">--max-w-wide</td><td class="mono">1340px</td><td>Wide corp content / hero sections.</td></tr>
+        <tr><td class="mono">--max-w-read</td><td class="mono">800px</td><td>Reading content (articles, long prose).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 6 — SHADOW + RADIUS
+     ============================================================== -->
+<section class="spec" id="shadow">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Shadow and radius</span>
+      <h2>Elevation and corner system</h2>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">Radii</h3>
+    <div class="grid cols-4">
+      <div><div style="height:90px; background:var(--panel); border:1px solid var(--border); border-radius:var(--r-xs);"></div><div class="tile-name">--r-xs 4px</div></div>
+      <div><div style="height:90px; background:var(--panel); border:1px solid var(--border); border-radius:var(--r-sm);"></div><div class="tile-name">--r-sm 8px</div></div>
+      <div><div style="height:90px; background:var(--panel); border:1px solid var(--border); border-radius:var(--r);"></div><div class="tile-name">--r 12px (default)</div></div>
+      <div><div style="height:90px; background:var(--panel); border:1px solid var(--border); border-radius:var(--r-lg);"></div><div class="tile-name">--r-lg 20px (cards)</div></div>
+    </div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Shadows</h3>
+    <div class="grid cols-3">
+      <div><div style="height:110px; background:var(--white); border-radius:var(--r); box-shadow:var(--shadow-sm);"></div><div class="tile-name">--shadow-sm</div><div class="tile-meta">Subtle lift, default card</div></div>
+      <div><div style="height:110px; background:var(--white); border-radius:var(--r); box-shadow:var(--shadow);"></div><div class="tile-name">--shadow</div><div class="tile-meta">Default elevated card</div></div>
+      <div><div style="height:110px; background:var(--white); border-radius:var(--r); box-shadow:var(--shadow-lg);"></div><div class="tile-name">--shadow-lg</div><div class="tile-meta">Modal, dropdown, hover</div></div>
+      <div><div style="height:110px; background:var(--amber); border-radius:var(--r-pill); box-shadow:var(--shadow-amber);"></div><div class="tile-name">--shadow-amber</div><div class="tile-meta">Primary CTA button</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 7 — IMAGE ASPECT RATIOS
+     ============================================================== -->
+<section class="spec" id="image">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Image aspect ratios</span>
+      <h2>Four canonical ratios (recommended)</h2>
+      <p>Recommended, not enforced. If you use another ratio, contain it in a fixed box; never let an image's native dimensions drive slide layout.</p>
+    </div>
+
+    <div class="grid cols-4">
+      <div>
+        <div class="ratio-box" style="aspect-ratio: 16 / 9;">16 : 9</div>
+        <div class="tile-name">Full-bleed hero</div>
+        <div class="tile-meta">Slide cover, full-screen image, video frame. Native 1920x1080.</div>
+      </div>
+      <div>
+        <div class="ratio-box" style="aspect-ratio: 4 / 3;">4 : 3</div>
+        <div class="tile-name">Card header</div>
+        <div class="tile-meta">Pillar-card image, track-card image, classic photo crop.</div>
+      </div>
+      <div>
+        <div class="ratio-box" style="aspect-ratio: 1 / 1;">1 : 1</div>
+        <div class="tile-name">Square</div>
+        <div class="tile-meta">Avatar, medallion, social-style content, icon tile.</div>
+      </div>
+      <div>
+        <div class="ratio-box" style="aspect-ratio: 4 / 5;">4 : 5</div>
+        <div class="tile-name">Portrait</div>
+        <div class="tile-meta">Person photo, magazine-style portrait, side-rail image.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Soft rule (this is the drift risk you accepted).</strong> The Intro Talk used ad-hoc image ratios (0.74, 1.27, 1.33, 1.78) — four shapes the deck never declared. The Uber Deck used twelve. If layouts start drifting again, the first lever is to harden this section from "recommended" to "must be one of the four, crop to fit."
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 8 — SLIDE FRAME (canvas + grid + wordmark)
+     ============================================================== -->
+<section class="spec" id="slide-frame">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Slide frame</span>
+      <h2>The 1920x1080 canvas</h2>
+      <p>Every slide sits inside this frame. The frame defines where text starts, where the wordmark sits, and how far content reaches from the edges.</p>
+    </div>
+
+    <div style="background:var(--panel); border:1px solid var(--border); border-radius:var(--r-lg); padding:2rem; margin-top:1rem;">
+      <div style="position:relative; width:100%; aspect-ratio:16/9; background:var(--white); border:2px dashed var(--amber); box-sizing:border-box;">
+        <!-- Wordmark zone -->
+        <div style="position:absolute; top:5%; left:6%; width:8%; height:5%; background:var(--amber); opacity:0.3; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:0.7rem; color:var(--navy);">Wordmark</div>
+        <!-- Title zone -->
+        <div style="position:absolute; top:15%; left:6%; right:6%; height:10%; background:var(--teal); opacity:0.18; border:1px solid var(--teal); display:flex; align-items:center; padding:0 0.5rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--navy);">Title zone — --t-title 72px</div>
+        <!-- Content zone -->
+        <div style="position:absolute; top:30%; left:6%; right:6%; height:55%; background:var(--green); opacity:0.12; border:1px solid var(--green); display:flex; align-items:center; padding:0 0.5rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--navy);">Content zone — body, cards, image, stats</div>
+        <!-- Footer zone -->
+        <div style="position:absolute; bottom:5%; left:6%; right:6%; height:5%; background:var(--muted); opacity:0.15; border:1px dashed var(--muted); display:flex; align-items:center; padding:0 0.5rem; font-family:var(--font-mono); font-size:0.7rem; color:var(--navy);">Footer reserve — slide number, section label (optional)</div>
+      </div>
+      <div style="margin-top:1rem; font-family:var(--font-mono); font-size:0.85rem; color:var(--muted);">
+        Canvas: 1920 &times; 1080 px (HTML) / 13.333" &times; 7.5" (PowerPoint).<br>
+        Padding: --slide-px 120px (~6.25% L+R) &nbsp;·&nbsp; --slide-pt 100px (~9% top) &nbsp;·&nbsp; --slide-pb 80px (~7.4% bottom).
+      </div>
+    </div>
+
+    <h3 style="margin:2.5rem 0 1rem;">Wordmark rules</h3>
+    <table class="spec-table">
+      <thead><tr><th>Rule</th><th>Value</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Logo height</td><td class="mono">36px (HTML) / 0.4" (PPT)</td><td>Big enough to read, small enough not to compete with the title.</td></tr>
+        <tr><td>Distance from top</td><td class="mono">48px (HTML) / 0.5" (PPT)</td><td>Sits above the title zone with breathing room.</td></tr>
+        <tr><td>Position</td><td class="mono">Top-left, inside --slide-px</td><td>Consistent place to find it; mirrors th1nk.co.za nav.</td></tr>
+        <tr><td>On dark slides</td><td class="mono">White / 90% opacity</td><td>Avoids stark white-on-black contrast.</td></tr>
+        <tr><td>On cover</td><td class="mono">Top-left, smaller (28px) <em>or</em> centred at slide bottom with --t-eyebrow under</td><td>Cover slide can dramatise the wordmark.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 9 — SLIDE LAYOUT TEMPLATES
+     ============================================================== -->
+<section class="spec" id="templates">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Slide templates</span>
+      <h2>Twelve named layouts. Pick one per slide.</h2>
+      <p>The rule that solves the HPT-deck drift problem: every slide picks one template from this list. Anything bespoke needs spec sign-off first. The miniature is a rough indicator — see the rendered version in <code>Th1nk Online/online/wiring/talk-hidden-wiring.html</code> for working examples.</p>
+    </div>
+
+    <div class="grid cols-4">
+      <!-- 01 Cover -->
+      <div>
+        <div class="slide-tile" style="background:linear-gradient(135deg, var(--navy), var(--dark-alt));">
+          <div class="t-full" style="background-image: linear-gradient(160deg, rgba(10,18,30,0.78), rgba(26,37,53,0.72)), url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect width=%22400%22 height=%22225%22 fill=%22%23333%22/></svg>'); background-size: cover;"></div>
+          <div style="position:relative; z-index:2; display:flex; flex-direction:column; height:100%;">
+            <div class="logo-dot">th1nk</div>
+            <div style="margin-top:auto;">
+              <div class="eb">Cover · The Hidden Wiring</div>
+              <div class="tt" style="font-size:22px; color:var(--white);">The Hidden<br>Wiring</div>
+              <div class="bd" style="color:rgba(255,255,255,0.7);">Steve Whitford &middot; Th1nk Online</div>
+            </div>
+          </div>
+        </div>
+        <div class="tile-name">01 · Cover</div>
+        <div class="tile-meta">Full-bleed image + dark overlay. <strong>--t-mega 168px / 96pt</strong> title. Eyebrow + sub. Wordmark top-left.</div>
+      </div>
+
+      <!-- 02 Section divider -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb" style="margin-top:auto;">Section · 02</div>
+          <div class="tt">A new chapter starts here.</div>
+          <div class="bar"></div>
+        </div>
+        <div class="tile-name">02 · Section divider</div>
+        <div class="tile-meta">Eyebrow + <strong>--t-mega 168px / 96pt</strong> + amber-bar. Used at chapter breaks.</div>
+      </div>
+
+      <!-- 03 Statement -->
+      <div>
+        <div class="slide-tile light">
+          <div class="logo-dot">th1nk</div>
+          <div style="margin:auto 0; max-width:90%;">
+            <div class="eb">The point</div>
+            <div class="tt">Capability is not the same as energy.</div>
+            <div class="bd">A single idea, given the room it deserves.</div>
+          </div>
+        </div>
+        <div class="tile-name">03 · Statement</div>
+        <div class="tile-meta">One line. Big. No clutter. Centred or anchored bottom-left.</div>
+      </div>
+
+      <!-- 04 Big stat -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">Research</div>
+          <div class="t-stat">
+            <div class="n">10-15%</div>
+            <div class="l">actually meet the criteria<br><span style="opacity:0.55;">— Tasha Eurich</span></div>
+          </div>
+        </div>
+        <div class="tile-name">04 · Big stat</div>
+        <div class="tile-meta">--t-stat 200px number + --t-subtitle label. Citation optional.</div>
+      </div>
+
+      <!-- 05 Three cards -->
+      <div>
+        <div class="slide-tile light">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">Three pillars</div>
+          <div class="tt" style="font-size:14px;">One outcome, three lenses.</div>
+          <div class="t-cards">
+            <div class="t-card">PEOPLE<br><span style="opacity:0.6;">Who's wired how</span></div>
+            <div class="t-card teal">PROCESS<br><span style="opacity:0.6;">How we work</span></div>
+            <div class="t-card navy">TECH<br><span style="opacity:0.6;">What runs it</span></div>
+          </div>
+        </div>
+        <div class="tile-name">05 · Three cards</div>
+        <div class="tile-meta">Three equal cards. Border-top accent in amber / teal / navy.</div>
+      </div>
+
+      <!-- 06 Two-column text -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">Compare</div>
+          <div class="tt" style="font-size:14px;">Two lenses, one moment.</div>
+          <div class="t-2col">
+            <div style="background:rgba(255,255,255,0.06); border-radius:3px; padding:6px; font-size:6.5px;">Left column body text.</div>
+            <div style="background:rgba(255,255,255,0.06); border-radius:3px; padding:6px; font-size:6.5px;">Right column body text.</div>
+          </div>
+        </div>
+        <div class="tile-name">06 · Two-column text</div>
+        <div class="tile-meta">Two equal text columns. Optional thin divider between them.</div>
+      </div>
+
+      <!-- 07 Two-column image+text -->
+      <div>
+        <div class="slide-tile light">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">With image</div>
+          <div class="tt" style="font-size:14px;">A story with a face.</div>
+          <div class="t-2col">
+            <div class="t-col-img"></div>
+            <div style="font-size:6.5px; color:var(--muted); padding:4px 0;">Body sits beside a 4:5 portrait or 4:3 image.</div>
+          </div>
+        </div>
+        <div class="tile-name">07 · Image + text</div>
+        <div class="tile-meta">Image left (4:5 or 4:3), text right. Mirror is permitted.</div>
+      </div>
+
+      <!-- 08 Two-by-two grid -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">Four lenses</div>
+          <div class="tt" style="font-size:14px;">Frame the whole.</div>
+          <div class="t-grid">
+            <div>BACK<br><span style="opacity:0.6;">Withdraw</span></div>
+            <div>TOWARD<br><span style="opacity:0.6;">Comply</span></div>
+            <div>INDEPENDENT<br><span style="opacity:0.6;">Push</span></div>
+            <div>—<br><span style="opacity:0.6;">Notes</span></div>
+          </div>
+        </div>
+        <div class="tile-name">08 · Two-by-two grid</div>
+        <div class="tile-meta">Four cards in a 2x2. Each can take an accent (amber, teal, green, purple).</div>
+      </div>
+
+      <!-- 09 Timeline -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">Life has seasons</div>
+          <div class="tt" style="font-size:14px;">Same room. Different questions.</div>
+          <div class="t-time">
+            <div class="t-time-col"><div class="t-time-dot"></div><div>20s</div></div>
+            <div class="t-time-col"><div class="t-time-dot"></div><div>30s</div></div>
+            <div class="t-time-col"><div class="t-time-dot" style="background:var(--teal);"></div><div>40s</div></div>
+            <div class="t-time-col"><div class="t-time-dot"></div><div>50s</div></div>
+            <div class="t-time-col"><div class="t-time-dot" style="background:var(--muted);"></div><div>60s</div></div>
+          </div>
+        </div>
+        <div class="tile-name">09 · Timeline / decade row</div>
+        <div class="tile-meta">Horizontal sequence. Dots on a track. Eyebrow + sub-question per step.</div>
+      </div>
+
+      <!-- 10 Layered list -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="eb">The map</div>
+          <div class="tt" style="font-size:14px;">Layers, in order.</div>
+          <div style="margin-top:6px; display:flex; flex-direction:column; gap:6px; font-family:var(--font-sans); font-size:7px;">
+            <div><span style="color:var(--amber);">●</span> Origin — first filters</div>
+            <div><span style="color:var(--teal);">●</span> Season — life question</div>
+            <div><span style="color:var(--green);">●</span> Personality — learned strategy</div>
+            <div><span style="color:var(--purple);">●</span> Work energy — capability vs love</div>
+          </div>
+        </div>
+        <div class="tile-name">10 · Layered list</div>
+        <div class="tile-meta">Vertical sequence. Coloured dot + label + optional sub. Up to 6 items.</div>
+      </div>
+
+      <!-- 11 Big quote -->
+      <div>
+        <div class="slide-tile">
+          <div class="logo-dot">th1nk</div>
+          <div class="t-quote">"We grade our own exams<br>and give ourselves <strong>an A.</strong>"</div>
+          <div class="bd" style="opacity:0.55;">— Tasha Eurich</div>
+        </div>
+        <div class="tile-name">11 · Big quote</div>
+        <div class="tile-meta">--t-large quote text, 300 weight. Amber highlights the key phrase. Attribution below.</div>
+      </div>
+
+      <!-- 12 Question prompt -->
+      <div>
+        <div class="slide-tile" style="background:linear-gradient(135deg, var(--navy), var(--dark-alt));">
+          <div style="position:absolute; inset:0; background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 225%22><rect width=%22400%22 height=%22225%22 fill=%22%23444%22/></svg>') center/cover; opacity:0.5;"></div>
+          <div style="position:relative; z-index:2; display:flex; flex-direction:column; height:100%; justify-content:center; align-items:center; text-align:center;">
+            <div class="tt" style="color:var(--white);">What's going<br>on here?</div>
+          </div>
+        </div>
+        <div class="tile-name">12 · Question prompt over image</div>
+        <div class="tile-meta">Full-bleed image + dimming overlay + centred --t-title question. Pause-and-think slide.</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:2rem;">
+      <strong>Rule for new templates.</strong> If a slide needs a layout not in this list, do not silently extend. Pick the closest match, build it, and flag the gap. New templates only land here after we've seen them work in three decks. Otherwise the list grows faster than discipline holds.
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 10 — COMPONENTS
+     ============================================================== -->
+<section class="spec" id="components">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Components</span>
+      <h2>Reusable patterns inside templates</h2>
+    </div>
+
+    <h3 style="margin-bottom:1rem;">Eyebrow</h3>
+    <p style="color:var(--muted); max-width:720px;">Small uppercase amber label. The Th1nk signature. Use above slide titles and section heads to set context.</p>
+    <div style="margin:1rem 0;"><span class="eyebrow">Eyebrow example</span></div>
+    <pre>&lt;span class="eyebrow"&gt;Section name&lt;/span&gt;
+font-family: Montserrat 700; font-size: 11px (web) / 24px (slide --t-eyebrow);
+letter-spacing: 0.12em; text-transform: uppercase;
+color: --amber; background: rgba(239,143,56,0.08); border: 1px solid rgba(239,143,56,0.2);
+padding: 0.35rem 0.85rem; border-radius: --r-pill.</pre>
+
+    <h3 style="margin:2rem 0 1rem;">Amber bar</h3>
+    <p style="color:var(--muted); max-width:720px;">80x6px gradient rule. Used under section dividers and as a visual punctuation mark.</p>
+    <div style="width:80px; height:6px; background:linear-gradient(90deg, var(--amber), var(--gold)); border-radius:3px; margin:1rem 0;"></div>
+    <pre>width: 80px; height: 6px; border-radius: 3px;
+background: linear-gradient(90deg, var(--amber), var(--gold));</pre>
+
+    <h3 style="margin:2rem 0 1rem;">Card (pillar / track / grid-card)</h3>
+    <p style="color:var(--muted); max-width:720px;">Standard content tile. White or panel background. Border-top accent in amber / teal / navy / green / purple.</p>
+    <div class="grid cols-3" style="margin-top:1rem;">
+      <div style="background:var(--white); border-radius:var(--r-lg); border:1px solid var(--border); border-top:4px solid var(--amber); padding:1.5rem; box-shadow:var(--shadow-sm);">
+        <div style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--amber); margin-bottom:0.5rem;">Eyebrow</div>
+        <div style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.5rem;">Card title</div>
+        <div style="color:var(--muted); font-size:0.95rem;">One sentence of body content goes here.</div>
+      </div>
+      <div style="background:var(--white); border-radius:var(--r-lg); border:1px solid var(--border); border-top:4px solid var(--teal); padding:1.5rem; box-shadow:var(--shadow-sm);">
+        <div style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal); margin-bottom:0.5rem;">Process</div>
+        <div style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.5rem;">Teal variant</div>
+        <div style="color:var(--muted); font-size:0.95rem;">For "process / tech / different" framing.</div>
+      </div>
+      <div style="background:var(--panel); border-radius:var(--r-lg); border-top:4px solid var(--navy); padding:1.5rem; box-shadow:var(--shadow-sm);">
+        <div style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--navy); margin-bottom:0.5rem;">Anchor</div>
+        <div style="font-family:var(--font-display); font-weight:700; color:var(--navy); margin-bottom:0.5rem;">Navy variant</div>
+        <div style="color:var(--muted); font-size:0.95rem;">Neutral / anchor framing.</div>
+      </div>
+    </div>
+
+    <h3 style="margin:2rem 0 1rem;">Numbered medallion (pillar-num / step-num)</h3>
+    <p style="color:var(--muted); max-width:720px;">Circle badge with gradient. Used to number pillars and journey steps.</p>
+    <div style="display:flex; gap:1.5rem; align-items:center; margin:1rem 0;">
+      <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--amber), var(--gold)); color:var(--white); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; box-shadow:var(--shadow-amber);">1</div>
+      <div style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, var(--amber), var(--gold)); color:var(--white); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; box-shadow:var(--shadow-amber);">2</div>
+      <div style="width:56px; height:56px; border-radius:50%; background:rgba(239,143,56,0.15); border:1px solid rgba(239,143,56,0.3); color:var(--amber); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px;">3</div>
+    </div>
+
+    <h3 style="margin:2rem 0 1rem;">Pill (chip)</h3>
+    <p style="color:var(--muted); max-width:720px;">Rounded chip label. Used for category tags, taxonomy markers, or short answer pills on slides.</p>
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin:1rem 0;">
+      <span style="padding:0.4rem 1rem; border-radius:100px; background:rgba(239,143,56,0.1); color:var(--amber); font-family:var(--font-display); font-weight:600; font-size:0.85rem; letter-spacing:0.04em;">Curiosity</span>
+      <span style="padding:0.4rem 1rem; border-radius:100px; background:rgba(89,192,217,0.1); color:var(--teal); font-family:var(--font-display); font-weight:600; font-size:0.85rem; letter-spacing:0.04em;">Process</span>
+      <span style="padding:0.4rem 1rem; border-radius:100px; background:rgba(26,37,53,0.06); color:var(--navy); font-family:var(--font-display); font-weight:600; font-size:0.85rem; letter-spacing:0.04em;">Anchor</span>
+    </div>
+
+    <h3 style="margin:2rem 0 1rem;">Buttons</h3>
+    <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin:1rem 0;">
+      <button style="background:var(--amber); color:var(--white); border:0; padding:0.85rem 2rem; font-family:inherit; font-size:0.95rem; font-weight:600; border-radius:100px; box-shadow:var(--shadow-amber); cursor:pointer;">Primary (amber)</button>
+      <button style="background:var(--ink); color:var(--white); border:0; padding:0.85rem 2rem; font-family:inherit; font-size:0.95rem; font-weight:600; border-radius:0; cursor:pointer;">Ink (WP square)</button>
+      <button style="background:transparent; color:var(--navy); border:1px solid var(--border); padding:0.85rem 2rem; font-family:inherit; font-size:0.95rem; font-weight:500; border-radius:100px; cursor:pointer;">Ghost</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================================================
+     SECTION 11 — KNOWN GAPS
+     ============================================================== -->
+<section class="spec" id="gaps">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Known gaps</span>
+      <h2>What v1.0 doesn't cover yet</h2>
+      <p>These are deliberately deferred. Listed here so we know what to add next.</p>
+    </div>
+
+    <table class="spec-table">
+      <thead><tr><th>Area</th><th>Status</th><th>Next step</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>PowerPoint master file (.pptx)</td>
+          <td>Not in v1.0</td>
+          <td>Build a Th1nk Slide Master.pptx with theme fonts (Montserrat / Inter), brand colour palette, and one layout per named template. Open in PowerPoint and save as a .potx template.</td>
+        </tr>
+        <tr>
+          <td>Refactor of live HTML pages to use --fs-* tokens</td>
+          <td>Pages currently hardcode clamp()</td>
+          <td>Pass over high-performance-teams.html, business-track.html, five-stages.html, index.html in a separate session.</td>
+        </tr>
+        <tr>
+          <td>Image aspect ratio enforcement</td>
+          <td>Recommended only</td>
+          <td>Watch for drift; if it returns, harden Briefing rule 8.</td>
+        </tr>
+        <tr>
+          <td>Motion / transitions / build-on-click</td>
+          <td>Not specified</td>
+          <td>Define a small set: fade-in (default), slide-left-in (reveal), no transition (default for content shift).</td>
+        </tr>
+        <tr>
+          <td>Dark mode / inverted slide variants</td>
+          <td>Partially covered (.light variants exist)</td>
+          <td>Document when to invert (every cover, every section divider, every quote — confirm).</td>
+        </tr>
+        <tr>
+          <td>Print / PDF handout typography</td>
+          <td>Not specified</td>
+          <td>Decide: do reading decks use --t-body 17pt (live size) or step down to 12-14pt for tighter pages?</td>
+        </tr>
+        <tr>
+          <td>Iconography</td>
+          <td>Not specified</td>
+          <td>Pick one icon family (e.g. Lucide). Document weight, size, colour rules.</td>
+        </tr>
+        <tr>
+          <td>Slide footer content (slide number, section label, deck title)</td>
+          <td>Reserved zone exists; content undefined</td>
+          <td>Decide what fills the footer reserve and on which template types.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    Th1nk Design Spec v1.0 &middot; Maintained by Steve Whitford &middot; Last revised 2026-05-15
+  </div>
+</footer>
+
+</body>
+</html>
