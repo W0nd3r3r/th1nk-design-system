@@ -1,0 +1,165 @@
+/**
+ * Th1nk Design System — Design Tokens
+ * Source: Extracted from th1nk.co.za live site (WordPress theme)
+ * Last updated: May 2026
+ *
+ * Use this file as the single source of truth for all Th1nk CI
+ * when building HTML pages, tools, and questionnaires.
+ */
+
+:root {
+
+  /* ── COLOUR PALETTE ───────────────────────────────────────────── */
+
+  /* Brand colours */
+  --color-blue:        #59c0d9;   /* Primary accent — buttons, highlights, selected states */
+  --color-green:       #57c26d;   /* Positive / success / Fly stage */
+  --color-orange:      #f29138;   /* Warning / Walk stage */
+  --color-red:         #de6868;   /* Alert / Crawl stage */
+  --color-purple:      #ae70de;   /* Secondary accent */
+  --color-yellow:      #f4cd58;   /* Highlight */
+  --color-gold:        #b9a478;   /* Decorative */
+
+  /* Neutrals */
+  --color-black:       #111111;   /* Body text, headings */
+  --color-white:       #ffffff;   /* Page background, reversed text */
+  --color-grey:        #9eacb0;   /* Subdued text, borders, placeholders */
+  --color-light-bg:    #f4f4f4;   /* Card backgrounds, subtle fills */
+
+  /* Links */
+  --color-link:        #1f86c7;   /* Inline link colour */
+  --color-link-hover:  #59c0d9;   /* Link hover (same as --color-blue) */
+
+  /* Stage colours (HPT assessment specific) */
+  --color-crawl:       #de6868;   /* Red */
+  --color-walk:        #f29138;   /* Orange */
+  --color-run:         #57c26d;   /* Green */
+  --color-fly:         #59c0d9;   /* Blue */
+
+  /* ── TYPOGRAPHY ───────────────────────────────────────────────── */
+
+  /* Fonts — load Parkinsans from Google Fonts:
+     @import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300;400;600;700;800&display=swap');
+  */
+  --font-primary:      'Parkinsans', sans-serif;
+  --font-mono:         'Fira Code', monospace;
+
+  /* Font weights */
+  --weight-light:      300;
+  --weight-regular:    400;
+  --weight-semibold:   600;
+  --weight-bold:       700;
+  --weight-extrabold:  800;
+
+  /* Type scale (fluid, from WordPress theme) */
+  --text-small:        0.875rem;
+  --text-medium:       clamp(1rem,    1rem    + ((1vw - 0.2rem) * 0.078), 1.05rem);
+  --text-large:        clamp(1.125rem,1.125rem + ((1vw - 0.2rem) * 0.392), 1.375rem);
+  --text-xlarge:       clamp(1.5rem,  1.5rem  + ((1vw - 0.2rem) * 0.596), 1.88rem);
+  --text-xxlarge:      clamp(1.5rem,  1.5rem  + ((1vw - 0.2rem) * 1.569), 2.5rem);
+
+  /* Line heights */
+  --leading-body:      1.4;
+  --leading-heading:   1.125;
+
+  /* Letter spacing */
+  --tracking-body:     -0.005px;
+  --tracking-heading:  -0.1px;
+  --tracking-eyebrow:  1.4px;   /* h6 / labels — also text-transform: uppercase */
+
+  /* ── SPACING ──────────────────────────────────────────────────── */
+
+  --space-xs:    10px;
+  --space-sm:    20px;
+  --space-md:    30px;
+  --space-lg:    clamp(30px, 5vw, 50px);
+  --space-xl:    clamp(30px, 7vw, 70px);
+  --space-xxl:   clamp(50px, 7vw, 90px);
+  --space-xxxl:  clamp(70px, 10vw, 140px);
+
+  /* Page content max-widths */
+  --max-content:  800px;
+  --max-wide:     1340px;
+
+  /* ── BORDERS & RADIUS ─────────────────────────────────────────── */
+
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-full:  9999px;   /* Pills, circles */
+
+  /* ── SHADOWS ──────────────────────────────────────────────────── */
+
+  --shadow-sm:    0px 2px 5px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:    6px 6px 9px rgba(0, 0, 0, 0.2);
+  --shadow-lg:    12px 12px 50px rgba(0, 0, 0, 0.4);
+
+  /* ── GRADIENTS ────────────────────────────────────────────────── */
+
+  --gradient-blues:    linear-gradient(135deg, rgb(238,248,255) 0%, rgba(33,196,237,0.58) 52%, rgba(9,42,77,0.74) 100%);
+  --gradient-purples:  linear-gradient(135deg, rgb(242,255,255) 0%, rgba(189,42,186,0.38) 53%, rgba(65,49,224,0.74) 100%);
+
+}
+
+/* ── BASE STYLES ────────────────────────────────────────────────── */
+
+body {
+  font-family:     var(--font-primary);
+  font-size:       var(--text-medium);
+  font-weight:     var(--weight-regular);
+  line-height:     var(--leading-body);
+  letter-spacing:  var(--tracking-body);
+  color:           var(--color-black);
+  background:      var(--color-white);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family:     var(--font-primary);
+  font-style:      normal;
+  line-height:     var(--leading-heading);
+  letter-spacing:  var(--tracking-heading);
+}
+
+h1 { font-size: var(--text-xxlarge); font-weight: var(--weight-extrabold); }
+h2 { font-size: var(--text-xlarge);  font-weight: var(--weight-bold); }
+h3 { font-size: var(--text-large);   font-weight: var(--weight-semibold); }
+h4 { font-size: var(--text-medium);  font-weight: var(--weight-regular); }
+h5 { font-size: var(--text-small);   letter-spacing: 0.5px; }
+h6 { font-size: var(--text-small);   font-weight: var(--weight-bold);
+     letter-spacing: var(--tracking-eyebrow); text-transform: uppercase; }
+
+a {
+  color:           var(--color-link);
+  text-decoration: none;
+}
+a:hover {
+  color:           var(--color-link-hover);
+}
+
+/* ── BUTTON DEFAULTS ────────────────────────────────────────────── */
+
+.btn {
+  display:          inline-block;
+  background-color: var(--color-black);
+  color:            var(--color-white);
+  font-family:      var(--font-primary);
+  font-size:        var(--text-medium);
+  font-weight:      var(--weight-regular);
+  padding:          1rem 2.25rem;
+  border:           none;
+  border-radius:    var(--radius-md);
+  cursor:           pointer;
+  text-decoration:  none;
+}
+.btn:hover {
+  background-color: rgba(17, 17, 17, 0.85);
+  color:            var(--color-white);
+}
+.btn-primary {
+  background-color: var(--color-blue);
+  color:            var(--color-white);
+}
+.btn-primary:hover {
+  background-color: #4aafc6;
+  color:            var(--color-white);
+}
