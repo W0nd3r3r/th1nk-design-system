@@ -1,0 +1,874 @@
+﻿/*
+ * Th1nk Web Components
+ * Use for: th1nk.co.za web pages, Th1nk Online pages — NEW pages only
+ * Import alongside: tokens.css
+ * DO NOT link this file to any existing page that uses nav-* (unprefixed) class names.
+ * All nav HTML must use th1nk-nav-* class names before this file is linked.
+ * DO NOT use for slide decks — use deck-components.css instead
+ */
+/* ============================================================
+   â”€â”€ 1. NAVIGATION
+   Source: index.html, th1nk-online.html, enneagram.html (all web pages)
+   ============================================================ */
+
+/* Fixed top nav shell */
+.th1nk-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0 2rem;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Inner flex row â€” logo | links | right actions */
+.th1nk-nav-inner {
+  max-width: var(--max, 1120px);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100px;
+  gap: 1.5rem;
+}
+
+/* Logo block: stacked image + sub-label */
+.th1nk-nav-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.th1nk-nav-logo a { text-decoration: none; display: block; }
+.th1nk-nav-logo img { width: 120px; height: auto; display: block; }
+.th1nk-nav-logo-sub {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--amber);
+}
+
+/* Centred link list */
+.th1nk-nav-links {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  align-items: center;
+}
+.th1nk-nav-links li a {
+  color: #7a7a79;
+  text-decoration: none;
+  font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.463), 1.1rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+  display: block;
+}
+.th1nk-nav-links li a:hover { color: var(--ink); background: rgba(0, 0, 0, 0.04); }
+.th1nk-nav-links li a.nav-active { color: var(--amber); }
+
+/* Dropdown */
+.th1nk-nav-dropdown { position: relative; }
+.th1nk-nav-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #7a7a79;
+  font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.463), 1.1rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.th1nk-nav-dropdown-toggle:hover { background: rgba(0, 0, 0, 0.04); }
+.th1nk-nav-dropdown-arrow {
+  display: inline-block;
+  width: 0; height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.th1nk-nav-dropdown.open .th1nk-nav-dropdown-arrow { transform: rotate(180deg); }
+.th1nk-nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  padding: 0.5rem 0;
+  z-index: 100;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.th1nk-nav-dropdown.open .th1nk-nav-dropdown-menu { display: block; }
+.th1nk-nav-dropdown-menu a {
+  display: block;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #7a7a79;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.th1nk-nav-dropdown-menu a:hover { color: #111; background: rgba(0, 0, 0, 0.03); }
+
+/* Social icon cluster */
+.th1nk-nav-social {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+.th1nk-nav-social a {
+  color: #646464;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px; height: 34px;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.th1nk-nav-social a:hover { color: var(--amber); background: rgba(239, 143, 56, 0.08); }
+.th1nk-nav-social svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* Nav CTA button */
+.th1nk-nav-cta {
+  display: inline-block;
+  font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.463), 1.1rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  text-decoration: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  border: 1.5px solid var(--amber);
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.th1nk-nav-cta:hover { background: var(--amber); color: #fff; }
+
+/* Burger (mobile) */
+.th1nk-nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+}
+.th1nk-nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.th1nk-nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.th1nk-nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.th1nk-nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .th1nk-nav-toggle { display: flex; }
+  .th1nk-nav-social { display: none; }
+  .th1nk-nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100px; left: 0; right: 0;
+    background: #fff;
+    padding: 1rem 1.5rem 1.5rem;
+    gap: 0.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    justify-content: flex-start;
+    flex: unset;
+  }
+  .th1nk-nav-links.open { display: flex; }
+  .th1nk-nav-links li a { padding: 0.65rem 0.5rem; border-radius: 4px; font-size: 15px; }
+}
+
+/* Enneagram sub-nav strip
+   Source: enneagram.html */
+.th1nk-subnav {
+  width: 100%;
+  background: #F0F2F5;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+.th1nk-subnav-inner {
+  max-width: var(--max, 1120px);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 0;
+}
+.th1nk-subnav-inner::-webkit-scrollbar { display: none; }
+.th1nk-subnav a {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7a7a79;
+  text-decoration: none;
+  padding: 0 10px;
+  white-space: nowrap;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.th1nk-subnav a:hover { color: var(--ink); }
+.th1nk-subnav a.active { color: var(--amber); border-bottom: 2px solid var(--amber); }
+.th1nk-subnav-sep {
+  width: 1px; height: 16px;
+  background: #c8cdd6;
+  margin: 0 4px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+
+/* ============================================================
+   â”€â”€ 2. HERO â€” Web page (photo background)
+   Source: index.html, th1nk-online.html
+   ============================================================ */
+
+.th1nk-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: #fff;
+}
+.th1nk-hero-bg {
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center 35%;
+}
+.th1nk-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg,
+    rgba(10, 18, 30, 0.82) 0%,
+    rgba(26, 37, 53, 0.75) 50%,
+    rgba(10, 18, 30, 0.68) 100%
+  );
+}
+.th1nk-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  padding: 10rem 2rem 4rem;
+}
+.th1nk-hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+.th1nk-hero h1 strong { font-weight: 700; color: var(--teal); }
+.th1nk-hero-lead {
+  font-size: clamp(1.0625rem, 2vw, 1.3125rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 2.5rem;
+}
+/* Scroll indicator line â€” decorative, 12px intentional */
+.th1nk-hero-scroll {
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.th1nk-hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px; height: 40px;
+  background: rgba(255, 255, 255, 0.25);
+  animation: th1nkScrollPulse 2s ease-in-out infinite;
+}
+@keyframes th1nkScrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 0.7; transform: scaleY(1.3); }
+}
+
+/* Variant: dark gradient hero (no photo), used on pricing, enneagram
+   Source: pricing.html, enneagram.html */
+.th1nk-hero.dark-grad {
+  min-height: auto;
+  padding: 8rem 2rem 5rem;
+  background: linear-gradient(150deg, #070d18 0%, #1a2535 55%, #1a2038 100%);
+}
+.th1nk-hero.dark-grad::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(239, 143, 56, 0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   â”€â”€ 3. EYEBROW LABEL
+   Source: index.html, th1nk-online.html (web); HPT deck (slide)
+   Variants: .on-dark, .teal, .green, .gold
+   ============================================================ */
+
+/* Web variant â€” pill style */
+.th1nk-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  margin-bottom: 1.25rem;
+  background: rgba(239, 143, 56, 0.08);
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+  border: 1px solid rgba(239, 143, 56, 0.2);
+}
+/* On dark sections, increase contrast */
+.th1nk-eyebrow.on-dark {
+  background: rgba(239, 143, 56, 0.18);
+  border-color: rgba(239, 143, 56, 0.35);
+}
+
+/* Slide variant â€” no pill, larger, Montserrat
+   Source: HPT deck, Skills Swap deck, Hidden Wiring deck */
+.th1nk-eyebrow-slide {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.th1nk-eyebrow-slide.teal  { color: var(--teal); }
+.th1nk-eyebrow-slide.green { color: var(--green); }
+.th1nk-eyebrow-slide.gold  { color: var(--gold); }
+
+
+/* ============================================================
+   â”€â”€ 4. SECTION HEADER BLOCK
+   Source: index.html, th1nk-online.html
+   ============================================================ */
+
+.th1nk-section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.th1nk-section-header h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.875rem, 3.2vw, 2.5rem);
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+.th1nk-section-header .th1nk-section-lead {
+  font-size: 1.0625rem;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+/* On dark section backgrounds */
+.bg-dark .th1nk-section-header h2 { color: #fff; }
+.bg-dark .th1nk-section-lead { color: rgba(255, 255, 255, 0.75); }
+
+
+/* ============================================================
+   â”€â”€ 5. BUTTONS
+   Source: index.html, th1nk-online.html
+   Variants: .btn-primary, .btn-ghost, .btn-outline, .btn-green
+   ============================================================ */
+
+.th1nk-btn {
+  display: inline-block;
+  padding: 0.9rem 1.85rem;
+  border-radius: var(--r, 12px);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+.th1nk-btn.primary {
+  background: var(--amber);
+  color: #fff;
+  border-color: var(--amber);
+}
+.th1nk-btn.primary:hover {
+  background: #d97e2a;
+  border-color: #d97e2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 143, 56, 0.4);
+}
+.th1nk-btn.ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+}
+.th1nk-btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-2px);
+}
+.th1nk-btn.outline {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  background: transparent;
+  transition: all 0.25s;
+}
+.th1nk-btn.outline:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(239, 143, 56, 0.08);
+}
+.th1nk-btn.green {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.th1nk-btn.green:hover {
+  background: #45a85a;
+  border-color: #45a85a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(87, 194, 109, 0.4);
+}
+
+/* CTA row â€” centred button cluster */
+.th1nk-cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .th1nk-cta-row { flex-direction: column; align-items: center; }
+  .th1nk-cta-row .th1nk-btn { width: 100%; max-width: 320px; text-align: center; }
+}
+
+
+/* ============================================================
+   â”€â”€ 6. CTA BOX (dark navy with glow)
+   Source: index.html, th1nk-online.html
+   ============================================================ */
+
+.th1nk-cta-box {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--dark-alt, #2D2D2D) 100%);
+  border-radius: var(--r-lg, 20px);
+  padding: 4rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.th1nk-cta-box::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(89, 192, 217, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.th1nk-cta-box h2 { color: #fff; margin-bottom: 0.75rem; }
+.th1nk-cta-box p  { color: rgba(255, 255, 255, 0.8); font-size: 1.0625rem; margin-bottom: 2rem; }
+
+@media (max-width: 600px) {
+  .th1nk-cta-box { padding: 2.5rem 1.5rem; }
+}
+
+
+/* ============================================================
+   â”€â”€ 7. PILLAR CARDS (People / Process / Technology)
+   Source: index.html
+   ============================================================ */
+
+.th1nk-pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.th1nk-pillar-card {
+  background: #E8ECF2;
+  border: 1px solid #D4D9E3;
+  border-radius: var(--r-lg, 20px);
+  text-align: center;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06));
+  transition: box-shadow 0.25s, transform 0.25s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.th1nk-pillar-card:hover {
+  box-shadow: var(--shadow, 0 4px 16px rgba(0,0,0,0.07));
+  transform: translateY(-3px);
+}
+
+/* Coloured top stripe â€” 4px, applied via modifier */
+.th1nk-pillar-card-header {
+  padding: 2rem 1.75rem 1.5rem;
+  position: relative;
+}
+.th1nk-pillar-card-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.th1nk-pillar-card.people  .th1nk-pillar-card-header::before { background: linear-gradient(90deg, var(--teal), var(--navy)); }
+.th1nk-pillar-card.process .th1nk-pillar-card-header::before { background: linear-gradient(90deg, var(--amber), var(--gold)); }
+.th1nk-pillar-card.tech    .th1nk-pillar-card-header::before { background: linear-gradient(90deg, var(--green), var(--teal)); }
+
+.th1nk-pillar-icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin: 0 auto 1.25rem;
+}
+.th1nk-pillar-card.people  .th1nk-pillar-icon { background: rgba(89, 192, 217, 0.15); color: var(--teal); }
+.th1nk-pillar-card.process .th1nk-pillar-icon { background: rgba(239, 143, 56, 0.15); color: var(--amber); }
+.th1nk-pillar-card.tech    .th1nk-pillar-icon { background: rgba(87, 194, 109, 0.15); color: var(--green); }
+
+.th1nk-pillar-card h3 { font-size: 1.25rem; color: var(--navy); margin-bottom: 0.5rem; }
+.th1nk-pillar-card .pillar-subtitle {
+  font-size: 0.875rem;
+  color: var(--amber);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+.th1nk-pillar-card-body { padding: 0 1.75rem 2rem; flex: 1; }
+.th1nk-pillar-card p { font-size: 0.9375rem; color: var(--charcoal); line-height: 1.7; }
+
+
+/* ============================================================
+   â”€â”€ 8. OUTCOME ITEMS (icon + heading + text)
+   Source: index.html
+   ============================================================ */
+
+.th1nk-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+.th1nk-outcome-item {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-radius: var(--r-lg, 20px);
+  background: var(--white, #fff);
+  border: 1px solid var(--border, #E5E7EB);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06));
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.th1nk-outcome-item:hover {
+  box-shadow: var(--shadow, 0 4px 16px rgba(0,0,0,0.07));
+  transform: translateY(-3px);
+}
+.th1nk-outcome-icon {
+  width: 56px; height: 56px;
+  background: rgba(239, 143, 56, 0.12);
+  border: 1px solid rgba(239, 143, 56, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--amber);
+  margin: 0 auto 1.1rem;
+}
+.th1nk-outcome-item h3 { color: var(--navy); font-size: 1.0625rem; margin-bottom: 0.4rem; }
+.th1nk-outcome-item p  { font-size: 0.9375rem; color: var(--muted); line-height: 1.65; }
+
+
+/* ============================================================
+   â”€â”€ 9. JOURNEY PHASE FLOW
+   Source: index.html
+   Variants: numbered circles (p-assess / p-online / p-deeper),
+             phase labels (l-start / l-grow / l-scale)
+   ============================================================ */
+
+.th1nk-journey-flow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  flex-wrap: wrap;
+}
+.th1nk-journey-phase {
+  flex: 1;
+  min-width: 200px;
+  max-width: 300px;
+  text-align: center;
+  padding: 0 1rem;
+  position: relative;
+}
+.th1nk-journey-phase::after {
+  content: '';
+  position: absolute;
+  top: 30px; right: -8px;
+  width: 16px; height: 2px;
+  background: rgba(0, 0, 0, 0.12);
+}
+.th1nk-journey-phase:last-child::after { display: none; }
+
+.th1nk-phase-num {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 auto 1rem;
+}
+.th1nk-phase-num.assess { background: linear-gradient(135deg, var(--teal), var(--navy)); }
+.th1nk-phase-num.online { background: linear-gradient(135deg, var(--amber), var(--gold)); }
+.th1nk-phase-num.deeper { background: linear-gradient(135deg, var(--green), var(--teal)); }
+
+.th1nk-journey-phase h3 { color: var(--navy); font-size: 1rem; margin-bottom: 0.4rem; }
+.th1nk-journey-phase p  { font-size: 0.9375rem; color: var(--muted); line-height: 1.6; }
+
+/* Phase label tag â€” 12px decorative, intentional */
+.th1nk-phase-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+.th1nk-phase-label.start { background: rgba(89, 192, 217, 0.15); color: #3aa8c4; }
+.th1nk-phase-label.grow  { background: rgba(239, 143, 56, 0.15);  color: #c97020; }
+.th1nk-phase-label.scale { background: rgba(87, 194, 109, 0.15);  color: #3a9e52; }
+
+@media (max-width: 700px) {
+  .th1nk-journey-flow { flex-direction: column; align-items: center; }
+  .th1nk-journey-phase::after { display: none; }
+  .th1nk-journey-phase { max-width: 100%; margin-bottom: 2rem; }
+}
+
+
+/* ============================================================
+   â”€â”€ 10. EVENT PANEL (Reserve Your Seat / QR code block)
+   Source: index.html
+   ============================================================ */
+
+.th1nk-event-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white, #fff);
+  border-radius: var(--r-lg, 20px);
+  overflow: hidden;
+  box-shadow: var(--shadow, 0 4px 16px rgba(0,0,0,0.07));
+  border: 1px solid var(--border, #E5E7EB);
+}
+.th1nk-event-panel-left {
+  padding: 3rem 2.5rem;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--dark-alt, #2D2D2D) 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.th1nk-event-panel-left h2 {
+  color: #fff;
+  margin-bottom: 0;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+}
+.th1nk-event-panel-left .summary { color: rgba(255, 255, 255, 0.78); font-size: 0.98rem; line-height: 1.65; }
+
+.th1nk-event-detail-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.85rem; }
+.th1nk-event-detail-list li { display: flex; align-items: flex-start; gap: 0.85rem; font-size: 0.95rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
+.th1nk-event-detail-list li svg { width: 20px; height: 20px; flex-shrink: 0; stroke: var(--amber); stroke-width: 2; fill: none; margin-top: 1px; }
+.th1nk-event-detail-list li strong { display: block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; font-weight: 600; }
+
+.th1nk-event-panel-right {
+  padding: 3rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+.th1nk-event-panel-right h3 { font-size: 1.15rem; color: var(--navy); margin-bottom: 0; }
+.th1nk-qr-wrap {
+  display: inline-block;
+  background: var(--white, #fff);
+  padding: 0.75rem;
+  border-radius: var(--r, 12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid var(--border, #E5E7EB);
+}
+.th1nk-qr-wrap img { display: block; width: 180px; height: 180px; }
+.th1nk-qr-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; }
+
+@media (max-width: 768px) {
+  .th1nk-event-panel { grid-template-columns: 1fr; }
+  .th1nk-event-panel-left,
+  .th1nk-event-panel-right { padding: 2.5rem 1.75rem; }
+}
+
+
+/* ============================================================
+   â”€â”€ 11. PRICING CARD
+   Source: pricing.html
+   Variants: .featured (navy border + badge)
+   ============================================================ */
+
+.th1nk-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+.th1nk-pricing-card {
+  background: var(--white, #fff);
+  border: 1px solid var(--border, #E5E7EB);
+  border-radius: var(--r-lg, 20px);
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.06));
+  transition: box-shadow 0.25s, transform 0.25s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.th1nk-pricing-card:hover {
+  box-shadow: var(--shadow, 0 4px 16px rgba(0,0,0,0.07));
+  transform: translateY(-3px);
+}
+.th1nk-pricing-card.featured {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px var(--navy), var(--shadow-sm);
+}
+.th1nk-featured-badge {
+  position: absolute;
+  top: -12px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.85rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+.th1nk-pricing-tier {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+.th1nk-pricing-price {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.th1nk-pricing-features {
+  text-align: left;
+  flex-grow: 1;
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0;
+}
+.th1nk-pricing-features li {
+  font-size: 0.875rem;
+  color: var(--muted);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.th1nk-pricing-features li:last-child { border-bottom: none; }
+.th1nk-pricing-features li::before {
+  content: 'âœ“';
+  color: var(--teal);
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   â”€â”€ 12. FOOTER
+   Source: index.html, th1nk-online.html (all web pages)
+   ============================================================ */
+
+.th1nk-footer {
+  background: #0a0f18;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: center;
+  padding: 1.75rem 2rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+}
+.th1nk-footer a { color: rgba(255, 255, 255, 0.5); text-decoration: none; transition: color 0.2s; }
+.th1nk-footer a:hover { color: var(--amber); }
+
+
+/* ============================================================
+   -- END OF WEB COMPONENTS
+   ============================================================ */

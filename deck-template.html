@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><!-- REPLACE: Deck Title --></title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Th1nk Design System -->
+  <link rel="stylesheet" href="../th1nk-design-system/tokens.css">
+  <link rel="stylesheet" href="../th1nk-design-system/deck-components.css">
+</head>
+<body>
+
+  <!-- SLIDE 01 · Cover -->
+  <section class="th1nk-slide-cover" data-slide="1">
+    <div class="wash"></div>
+    <div class="wordmark">th1nk</div>
+    <div class="kicker"><!-- REPLACE: event or context line --></div>
+    <h1 class="th1nk-slide-title"><!-- REPLACE: Talk title --></h1>
+    <div class="th1nk-slide-foot on-dark"><span class="brand">th1nk</span><span class="sep"></span><span><!-- REPLACE: speaker name --></span></div>
+  </section>
+
+  <!-- SLIDE 02 · Section divider -->
+  <section class="th1nk-slide-divider" data-slide="2">
+    <div class="ctx"><!-- REPLACE: context label --></div>
+    <h2 class="head"><!-- REPLACE: <span>Opening</span> <strong>word,</strong> --></h2>
+    <p class="sub"><!-- REPLACE: sub-heading sentence --></p>
+    <div class="th1nk-slide-foot on-dark"><span class="brand">th1nk</span><span class="sep"></span><span>02 / 00</span></div>
+  </section>
+
+  <!-- SLIDE 03 · Content slide (example: three cards) -->
+  <section data-slide="3" style="padding: var(--space-xl);">
+    <div class="th1nk-amber-bar"></div>
+    <p class="th1nk-eyebrow-slide"><!-- REPLACE: eyebrow --></p>
+    <h2 class="th1nk-slide-title"><!-- REPLACE: Slide heading --></h2>
+    <div class="th1nk-three-cards">
+      <div class="th1nk-slide-card amber">
+        <div class="card-label"><!-- REPLACE --></div>
+        <div class="card-title"><!-- REPLACE --></div>
+        <div class="card-body"><!-- REPLACE --></div>
+      </div>
+      <div class="th1nk-slide-card teal">
+        <div class="card-label"><!-- REPLACE --></div>
+        <div class="card-title"><!-- REPLACE --></div>
+        <div class="card-body"><!-- REPLACE --></div>
+      </div>
+      <div class="th1nk-slide-card navy">
+        <div class="card-label"><!-- REPLACE --></div>
+        <div class="card-title"><!-- REPLACE --></div>
+        <div class="card-body"><!-- REPLACE --></div>
+      </div>
+    </div>
+    <div class="th1nk-slide-foot"><span class="brand">th1nk</span><span class="sep"></span><span>03 / 00</span></div>
+  </section>
+
+  <!-- SLIDE 04 · Closing slide -->
+  <section class="th1nk-slide-cover" data-slide="4">
+    <div class="wash"></div>
+    <div class="wordmark">th1nk</div>
+    <h2 class="th1nk-slide-title light"><!-- REPLACE: Closing line --></h2>
+    <div class="th1nk-slide-foot on-dark"><span class="brand">th1nk</span><span class="sep"></span><span>steve.whitford@scaleforce.co.za</span></div>
+  </section>
+
+</body>
+
+<!-- Speaker notes — one entry per slide number -->
+<script type="application/json" id="speaker-notes">
+{
+  "1": "<!-- REPLACE: Cover notes -->",
+  "2": "<!-- REPLACE: Divider notes -->",
+  "3": "<!-- REPLACE: Content slide notes -->",
+  "4": "<!-- REPLACE: Closing notes -->"
+}
+</script>
+
+<script src="../online/deck-stage.js"></script>
+</html>

@@ -1,0 +1,890 @@
+﻿/*
+ * Th1nk Deck Components
+ * Use for: HTML slide decks only
+ * Import alongside: tokens.css
+ * Fonts required: Montserrat (--font-display) + Inter (--font-body) from Google Fonts
+ * DO NOT use for web pages — use web-components.css instead
+ */
+/* ============================================================
+   â”€â”€ 13. SLIDE: COVER
+   Source: HPT deck (high-performance-team.html)
+   ============================================================ */
+
+.th1nk-slide-cover {
+  background: var(--white, #fff);
+  color: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+/* Amber wash glow â€” decorative */
+.th1nk-slide-cover .wash {
+  position: absolute;
+  inset: auto -120px -120px -120px;
+  height: 700px;
+  background: linear-gradient(135deg, var(--amber) 0%, var(--gold) 100%);
+  opacity: 0.08;
+  filter: blur(40px);
+  pointer-events: none;
+}
+.th1nk-slide-cover .wordmark {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+.th1nk-slide-cover .wordmark i { font-style: normal; color: var(--amber); }
+.th1nk-slide-cover .kicker {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 32px;
+}
+.th1nk-slide-cover h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 168px;
+  line-height: 0.95;
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  color: var(--navy);
+}
+.th1nk-slide-cover h1 em { font-style: italic; font-weight: 700; color: var(--amber); }
+.th1nk-slide-cover .meta {
+  display: flex;
+  gap: 64px;
+  align-items: baseline;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 80px;
+}
+.th1nk-slide-cover .meta strong { color: var(--navy); font-weight: 700; }
+
+
+/* ============================================================
+   â”€â”€ 14. SLIDE: DIVIDER (dark full-bleed section break)
+   Source: HPT deck â€” slides 03, 09
+   ============================================================ */
+
+.th1nk-slide-divider {
+  background: linear-gradient(160deg, var(--navy) 0%, var(--dark-alt, #2D2D2D) 100%);
+  color: #fff;
+}
+.th1nk-slide-divider .ctx {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 36px;
+}
+.th1nk-slide-divider .head {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 120px;
+  line-height: 1.0;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  max-width: 1500px;
+}
+.th1nk-slide-divider .head .accent { color: var(--amber); font-weight: 700; font-style: italic; }
+.th1nk-slide-divider .head .bold   { font-weight: 700; }
+.th1nk-slide-divider .sub {
+  margin-top: 40px;
+  font-size: 38px;
+  font-weight: 300;
+  line-height: 1.32;
+  max-width: 1100px;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+
+/* ============================================================
+   â”€â”€ 15. SLIDE: STAT BLOCK
+   Source: HPT deck â€” slide 02 (case for designing teams)
+   ============================================================ */
+
+.th1nk-stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border, #E5E7EB);
+}
+.th1nk-stat-block:last-of-type { border-bottom: 1px solid var(--border, #E5E7EB); }
+.th1nk-stat-big {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+}
+.th1nk-stat-big em { color: var(--amber); font-style: normal; font-weight: 700; }
+/* Cycles: 2nd amber, 2nd teal, 3rd gold */
+.th1nk-stat-block:nth-of-type(2) .th1nk-stat-big em { color: var(--teal); }
+.th1nk-stat-block:nth-of-type(3) .th1nk-stat-big em { color: var(--gold); }
+.th1nk-stat-cap {
+  font-size: 22px;
+  color: var(--muted);
+  font-weight: 400;
+  line-height: 1.4;
+  max-width: 620px;
+}
+
+
+/* ============================================================
+   â”€â”€ 16. SLIDE: TWO-COLUMN CARDS (Delivery vs Innovation)
+   Source: HPT deck â€” slide 04
+   ============================================================ */
+
+.th1nk-two-col-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  flex: 1;
+}
+.th1nk-col-card {
+  background: var(--white, #fff);
+  border-radius: var(--r-sm, 8px);
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.05);
+  padding: 56px 48px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.th1nk-col-card .top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+}
+.th1nk-col-card .label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.th1nk-col-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 700;
+  margin: 0 0 36px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.th1nk-col-card dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 48px;
+  row-gap: 22px;
+}
+.th1nk-col-card dt {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.th1nk-col-card dd {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--navy);
+  font-weight: 500;
+}
+/* Colour variants */
+.th1nk-col-card.delivery .top-bar { background: linear-gradient(135deg, var(--amber) 0%, var(--gold) 100%); }
+.th1nk-col-card.delivery .label  { color: var(--amber); }
+.th1nk-col-card.innovation .top-bar { background: linear-gradient(135deg, var(--teal) 0%, var(--navy) 100%); }
+.th1nk-col-card.innovation .label  { color: var(--teal); }
+
+
+/* ============================================================
+   â”€â”€ 17. SLIDE: QUOTE / GOAL CARDS (3-column warm background)
+   Source: HPT deck â€” slide 05
+   ============================================================ */
+
+.th1nk-goal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  align-content: center;
+  flex: 1;
+}
+.th1nk-goal-card {
+  background: var(--warm, #FFF8F0);
+  border-radius: var(--r-sm, 8px);
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.05);
+  padding: 40px 44px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.th1nk-goal-card .quote-mark {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 96px;
+  line-height: 0.6;
+  font-weight: 800;
+  color: var(--amber);
+}
+.th1nk-goal-card p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.th1nk-goal-card p em { font-style: italic; color: var(--amber); font-weight: 700; }
+/* Colour cycles: 1st amber, 2nd teal, 3rd green */
+.th1nk-goal-grid .th1nk-goal-card:nth-child(2) { background: rgba(89, 192, 217, 0.08); }
+.th1nk-goal-grid .th1nk-goal-card:nth-child(2) .quote-mark { color: var(--teal); }
+.th1nk-goal-grid .th1nk-goal-card:nth-child(3) { background: rgba(87, 194, 109, 0.08); }
+.th1nk-goal-grid .th1nk-goal-card:nth-child(3) .quote-mark { color: var(--green); }
+
+
+/* ============================================================
+   â”€â”€ 18. SLIDE: DNA COLUMNS (Unhealthy / Healthy)
+   Source: HPT deck â€” slides 06, 07, 08
+   ============================================================ */
+
+.th1nk-dna-wrap {
+  display: grid;
+  grid-template-columns: 440px 1fr;
+  gap: 56px;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+}
+/* Left sidebar */
+.th1nk-dna-side { display: flex; flex-direction: column; gap: 20px; }
+.th1nk-dna-side h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 56px;
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.th1nk-dna-side h2 .sub {
+  display: block;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0;
+  margin-top: 14px;
+  color: var(--charcoal);
+  line-height: 1.35;
+}
+.th1nk-dna-side .img {
+  flex: 1;
+  min-height: 280px;
+  border-radius: var(--r-sm, 8px);
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.05);
+  background-size: cover;
+  background-position: center top;
+}
+.th1nk-dna-side .axis-note {
+  margin-top: auto;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+  padding-top: 16px;
+  border-top: 1px solid var(--border, #E5E7EB);
+}
+
+/* Right two-column list grid */
+.th1nk-dna-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 36px;
+  align-content: start;
+  padding-top: 120px;
+}
+.th1nk-dna-col-header {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  border-bottom: 2px solid;
+  margin-bottom: 8px;
+}
+.th1nk-dna-col-header.unhealthy { color: var(--red-soft, #DE6868); border-color: var(--red-soft, #DE6868); }
+.th1nk-dna-col-header.healthy   { color: var(--green); border-color: var(--green); }
+
+.th1nk-dna-items {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.th1nk-dna-items li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 18px;
+  position: relative;
+}
+.th1nk-dna-items li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 11px;
+  width: 8px; height: 2px;
+  background: currentColor;
+  opacity: 0.4;
+}
+.th1nk-dna-attr {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.th1nk-dna-ex {
+  font-size: 20px;
+  line-height: 1.35;
+  color: var(--charcoal);
+}
+
+
+/* ============================================================
+   â”€â”€ 19. SLIDE: CHARTER GRID (4Ã—2, numbered circles)
+   Source: HPT deck â€” slide 10
+   ============================================================ */
+
+.th1nk-charter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+.th1nk-charter-item {
+  background: var(--white, #fff);
+  border-radius: var(--r-sm, 8px);
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.05);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.th1nk-charter-num {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(239, 143, 56, 0.35);
+  margin-bottom: 8px;
+}
+/* Colour cycle for charter circles: amber / teal / green / gold */
+.th1nk-charter-grid .th1nk-charter-item:nth-child(4n+2) .th1nk-charter-num { background: var(--teal);  box-shadow: 0 4px 14px rgba(89,192,217,0.35); }
+.th1nk-charter-grid .th1nk-charter-item:nth-child(4n+3) .th1nk-charter-num { background: var(--green); box-shadow: 0 4px 14px rgba(87,194,109,0.35); }
+.th1nk-charter-grid .th1nk-charter-item:nth-child(4n+4) .th1nk-charter-num { background: var(--gold);  box-shadow: 0 4px 14px rgba(244,166,35,0.35); }
+
+.th1nk-charter-item h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.th1nk-charter-item p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--charcoal);
+}
+
+
+/* ============================================================
+   â”€â”€ 20. SLIDE: STAGE CARDS (Crawl / Walk / Run / Fly)
+   Source: HPT deck â€” slide 13 (HPT Quiz)
+   ============================================================ */
+
+.th1nk-stage-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  flex: 1;
+}
+.th1nk-stage-card {
+  border-radius: var(--r-sm, 8px);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+}
+.th1nk-stage-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: rgba(255,255,255,0.3);
+}
+.th1nk-stage-card.crawl { background: var(--c-crawl, #DE6868); }
+.th1nk-stage-card.walk  { background: var(--c-walk,  #EF8F38); }
+.th1nk-stage-card.run   { background: var(--c-run,   #57C26D); }
+.th1nk-stage-card.fly   { background: var(--c-fly,   #59C0D9); }
+.th1nk-stage-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.th1nk-stage-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.th1nk-stage-card p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.88);
+}
+
+
+/* ============================================================
+   â”€â”€ 21. SLIDE: THREE-COLUMN START CARDS (People / Process / Tech)
+   Source: HPT deck â€” slide 11
+   ============================================================ */
+
+.th1nk-start-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
+  flex: 1;
+}
+.th1nk-start-card {
+  background: var(--white, #fff);
+  border-radius: var(--r-sm, 8px);
+  box-shadow: 0 2px 5px 2px rgba(0,0,0,0.05);
+  padding: 56px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.th1nk-start-card .top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+}
+.th1nk-start-card.people  .top-bar { background: var(--amber); }
+.th1nk-start-card.process .top-bar { background: var(--teal); }
+.th1nk-start-card.tech    .top-bar { background: var(--green); }
+
+.th1nk-start-card .pillar {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.th1nk-start-card.people  .pillar { color: var(--amber); }
+.th1nk-start-card.process .pillar { color: var(--teal); }
+.th1nk-start-card.tech    .pillar { color: var(--green); }
+
+.th1nk-start-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.th1nk-start-card ul {
+  margin: 8px 0 0; padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.th1nk-start-card li {
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--charcoal);
+  padding-left: 28px;
+  position: relative;
+}
+.th1nk-start-card li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14px;
+  width: 14px; height: 2px;
+  background: var(--amber);
+}
+.th1nk-start-card.process li::before { background: var(--teal); }
+.th1nk-start-card.tech    li::before { background: var(--green); }
+
+
+/* ============================================================
+   â”€â”€ 22. SLIDE FOOT (brand + page number)
+   Source: HPT deck â€” all slides
+   ============================================================ */
+
+.th1nk-slide-foot {
+  position: absolute;
+  right: 120px;
+  bottom: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 28px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted, #6B7280);
+  pointer-events: none;
+}
+.th1nk-slide-foot .brand {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--navy);
+}
+.th1nk-slide-foot .brand i { font-style: normal; color: var(--amber); }
+.th1nk-slide-foot .sep {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.4;
+}
+/* On dark slides */
+.th1nk-slide-foot.on-dark { color: rgba(255,255,255,0.6); }
+.th1nk-slide-foot.on-dark .brand { color: #fff; }
+
+
+/* ============================================================
+   â”€â”€ 23. SLIDE: NOTE CALLOUT (left-border quote block)
+   Source: Skills Swap deck, Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-note-callout {
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 5px solid var(--amber);
+  border-radius: 8px;
+  padding: 22px 28px;
+  font-size: 22px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.86);
+}
+/* Variant: on warm/light background */
+.th1nk-note-callout.warm {
+  background: rgba(26, 37, 53, 0.05);
+  color: var(--charcoal);
+}
+
+
+/* ============================================================
+   â”€â”€ 24. SLIDE: AMBER ACCENT BAR
+   Source: Skills Swap deck, Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-amber-bar {
+  width: 80px; height: 6px;
+  background: linear-gradient(90deg, var(--amber), var(--gold));
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   â”€â”€ 25. SLIDE: SLIDE TITLE (shared across all decks)
+   Source: HPT deck, Skills Swap deck, Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-slide-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin: 0;
+}
+.th1nk-slide-title em { color: var(--amber); font-style: italic; font-weight: 700; }
+.th1nk-slide-title.light { color: var(--white, #fff); }
+
+
+/* ============================================================
+   â”€â”€ 26. SLIDE: BODY TEXT (shared across all decks)
+   Source: HPT deck, Skills Swap deck, Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-slide-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--charcoal);
+}
+.th1nk-slide-body.light { color: rgba(255, 255, 255, 0.82); }
+
+
+/* ============================================================
+   â”€â”€ 27. SLIDE: BULLET LIST (dash marker, pillar-coloured)
+   Source: HPT deck, Skills Swap deck
+   ============================================================ */
+
+.th1nk-slide-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.th1nk-slide-list li {
+  font-size: 24px;
+  line-height: 1.45;
+  color: var(--charcoal);
+  padding-left: 28px;
+  position: relative;
+}
+.th1nk-slide-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 14px;
+  width: 14px; height: 2px;
+  background: var(--amber);
+}
+.th1nk-slide-list li em { font-style: italic; color: var(--amber); font-weight: 700; }
+/* Teal dash variant */
+.th1nk-slide-list.teal li::before { background: var(--teal); }
+/* Green dash variant */
+.th1nk-slide-list.green li::before { background: var(--green); }
+
+
+/* ============================================================
+   â”€â”€ 28. SLIDE: THREE CARDS (Skills Swap / Hidden Wiring)
+   Source: Skills Swap deck, Hidden Wiring deck
+   Variants: .amber, .teal, .navy (top border colour)
+   ============================================================ */
+
+.th1nk-three-cards {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  flex: 1;
+  align-items: stretch;
+}
+.th1nk-slide-card {
+  flex: 1;
+  background: var(--panel, #F5F7FA);
+  border-radius: 16px;
+  padding: 52px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border-top: 5px solid var(--border, #E5E7EB);
+}
+.th1nk-slide-card.amber { border-top-color: var(--amber); }
+.th1nk-slide-card.teal  { border-top-color: var(--teal); }
+.th1nk-slide-card.navy  { border-top-color: var(--navy); }
+
+.th1nk-slide-card .card-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.th1nk-slide-card .card-label.amber { color: var(--amber); }
+.th1nk-slide-card .card-label.teal  { color: var(--teal); }
+.th1nk-slide-card .card-label.navy  { color: var(--navy); }
+
+.th1nk-slide-card .card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+.th1nk-slide-card .card-body {
+  font-size: 28px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   â”€â”€ 29. SLIDE: JOURNEY PHASES (5-column, slide version)
+   Source: Skills Swap deck â€” slide 3
+   ============================================================ */
+
+.th1nk-slide-journey {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  flex: 1;
+  align-items: stretch;
+}
+.th1nk-slide-phase {
+  background: var(--white, #fff);
+  border-radius: 16px;
+  padding: 32px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 6px solid var(--amber);
+  box-shadow: 0 6px 24px rgba(26, 37, 53, 0.08);
+}
+/* Colour cycle for phase top borders */
+.th1nk-slide-journey .th1nk-slide-phase:nth-child(2) { border-top-color: var(--teal); }
+.th1nk-slide-journey .th1nk-slide-phase:nth-child(3) { border-top-color: var(--gold); }
+.th1nk-slide-journey .th1nk-slide-phase:nth-child(4) { border-top-color: var(--amber); }
+.th1nk-slide-journey .th1nk-slide-phase:nth-child(5) { border-top-color: var(--teal); }
+
+.th1nk-slide-phase .phase-num {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white, #fff);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.th1nk-slide-phase h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0;
+}
+.th1nk-slide-phase p {
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--charcoal);
+  margin: 0;
+}
+/* Dash-style sub-bullet (inside phases) */
+.th1nk-phase-ul {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.th1nk-phase-ul li {
+  display: flex; gap: 9px; align-items: flex-start;
+  font-size: 17px; line-height: 1.4;
+  color: var(--charcoal);
+}
+.th1nk-phase-ul li::before {
+  content: 'â€”';
+  color: var(--amber);
+  font-weight: 700;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+
+/* ============================================================
+   â”€â”€ 30. SLIDE: BIG STAT + LABEL (Hidden Wiring)
+   Source: Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-big-stat {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 200px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--amber);
+}
+.th1nk-stat-label-lg {
+  font-size: 44px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.4;
+  font-weight: 300;
+}
+.th1nk-stat-label-lg strong { color: var(--white, #fff); font-weight: 600; }
+
+
+/* ============================================================
+   â”€â”€ 31. SLIDE: QUOTE TEXT (large, light surface)
+   Source: Hidden Wiring deck, Skills Swap deck
+   ============================================================ */
+
+.th1nk-quote-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 56px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--white, #fff);
+  letter-spacing: -0.01em;
+}
+.th1nk-quote-text strong { color: var(--amber); font-weight: 700; }
+
+
+/* ============================================================
+   â”€â”€ 32. SLIDE: 2Ã—2 GRID CARDS (Hidden Wiring)
+   Source: Hidden Wiring deck
+   ============================================================ */
+
+.th1nk-two-by-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 32px;
+  flex: 1;
+}
+.th1nk-grid-card {
+  border-radius: 16px;
+  padding: 48px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.th1nk-grid-card .grid-card-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.th1nk-grid-card .grid-card-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.th1nk-grid-card .grid-card-body {
+  font-size: 28px;
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   â”€â”€ END OF COMPONENTS
+   ============================================================ */

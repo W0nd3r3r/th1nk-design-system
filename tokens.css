@@ -36,6 +36,9 @@
   --color-run:         #57c26d;   /* Green */
   --color-fly:         #59c0d9;   /* Blue */
 
+  /* Navy for completeness */
+  --color-navy:        #1a2535;
+
   /* ── TYPOGRAPHY ───────────────────────────────────────────────── */
 
   /* Fonts — load Parkinsans from Google Fonts:
@@ -98,6 +101,24 @@
 
   --gradient-blues:    linear-gradient(135deg, rgb(238,248,255) 0%, rgba(33,196,237,0.58) 52%, rgba(9,42,77,0.74) 100%);
   --gradient-purples:  linear-gradient(135deg, rgb(242,255,255) 0%, rgba(189,42,186,0.38) 53%, rgba(65,49,224,0.74) 100%);
+
+  /* ── Alias bridge — shorthand names used across all pages and decks ── */
+  --navy:   #1a2535;
+  --teal:   var(--color-blue);
+  --amber:  var(--color-orange);
+  --gold:   #b9a478;
+  --green:  var(--color-green);
+  --red:    var(--color-red);
+  --purple: var(--color-purple);
+
+  /* ── Font roles ── */
+  --font-display: 'Montserrat', sans-serif;   /* deck headings, eyebrows, labels */
+  --font-body:    'Inter', sans-serif;         /* deck body copy, captions */
+
+  /* ── Layout aliases used in components ── */
+  --max:  var(--max-wide);     /* 1340px */
+  --r:    var(--radius-md);    /* 8px */
+  --r-lg: var(--radius-lg);    /* 12px */
 
 }
 
