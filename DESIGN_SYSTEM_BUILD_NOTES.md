@@ -1,5 +1,5 @@
 # Th1nk Design System — Build Notes
-*Last updated: 2026-06-12*
+*Last updated: 2026-06-12 (post-deploy fix)*
 
 ---
 
@@ -117,12 +117,52 @@ Changed from 6 columns to 3 columns × 2 rows. Text bumped to `1.0625rem` / `1re
 
 ---
 
+## Deploy — June 2026
+
+### What was done
+Steve approved the rebuilt pages. All steps were executed in a single session.
+
+**Step 1 — Design system server copy synced**
+Copied `tokens.css`, `web-components.css`, `deck-components.css`, `html-components.html` from master (`th1nk-design-system/`) to server copy (`Th1nk Online/th1nk-design-system/`).
+
+**Step 2 — Pages deployed to `online/`**
+All 13 HTML files copied from `online-rebuild/` to `online/`, overwriting old pages.
+
+**Step 3 — CSS paths verified**
+All 13 files confirmed using `../th1nk-design-system/` — correct for both local and live server. No fixes needed.
+
+**Step 4 — W0nd3r3r/th1nk: pages pushed**
+Commit `b410a19` — "Rebuild online/ pages to use shared design system"
+13 files changed, 2570 insertions, 10130 deletions.
+
+**Step 5 — W0nd3r3r/th1nk-design-system: design system pushed**
+Commit `1c33ebc` — "Update design system: bump font sizes, add 26 new web components, fix token variables"
+`tokens.css`, `web-components.css`, `README.md` updated; `DESIGN_SYSTEM_BUILD_NOTES.md` and `DESIGN_SYSTEM_BUILD_PLAN.md` added as new tracked files.
+
+---
+
+## Post-Deploy Bug — June 2026
+
+### Symptom
+Four pages broke after deploy: `th1nk-online.html`, `how-it-works.html`, `mastery-track.html`, `business-track.html`.
+
+### Root cause
+The `W0nd3r3r/th1nk` repo holds its own copy of the design system CSS (`th1nk-design-system/tokens.css`, `web-components.css`). These were updated locally in the Step 1 sync but were NOT staged or pushed in Step 4 — only the `online/*.html` files were committed. The live server was left serving the old CSS, which was missing the new component classes used by the four broken pages (`th1nk-track-grid`, `th1nk-track-card`, `th1nk-prog-phases`, and others added during the rebuild).
+
+The other nine pages happened to use only component classes that existed in the old CSS, so they rendered correctly.
+
+### Fix
+Committed and pushed `tokens.css` + `web-components.css` to `W0nd3r3r/th1nk`.
+Commit `b42ef84` — "Fix broken pages: push updated design system CSS to live repo" — 635 lines added.
+
+### Rule to add
+**When deploying rebuilt pages to `W0nd3r3r/th1nk`, always also stage and push the `th1nk-design-system/` CSS files in the same repo.** The two repos (`th1nk` and `th1nk-design-system`) are separate git repos but both contain a copy of the CSS. Pushing to `th1nk-design-system` alone is not enough.
+
+---
+
 ## What Still Needs Doing
 
-1. **Review remaining pages** in `online-rebuild/` — dense grid components (`th1nk-char-grid` 4-col, `th1nk-maturity-track` 4-col, `th1nk-stages-flow` 5-col, `th1nk-phase-grid` 4-col) may still have cramped text
-2. **Copy `online-rebuild/` → `online/`** once Steve approves all pages
-3. **Push `online/` to `W0nd3r3r/th1nk`**
-4. **Push updated design system files to `W0nd3r3r/th1nk-design-system`**
+1. **Review dense grid components** — `th1nk-char-grid` (4-col), `th1nk-maturity-track` (4-col), `th1nk-stages-flow` (5-col), `th1nk-phase-grid` (4-col) may still have cramped text at smaller viewports
 
 ---
 
