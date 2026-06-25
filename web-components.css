@@ -902,7 +902,7 @@
 
 /* Two-column text + image layout */
 .th1nk-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: center; }
-.th1nk-two-col img { width: 100%; border-radius: var(--r-lg); box-shadow: var(--shadow-lg-web); display: block; }
+.th1nk-two-col img { width: 100%; height: auto; border-radius: var(--r-lg); box-shadow: var(--shadow-lg-web); display: block; }
 @media (max-width: 768px) { .th1nk-two-col { grid-template-columns: 1fr; } }
 
 /* Teal button variant (used by promo teal CTA) */
@@ -981,6 +981,47 @@
   .th1nk-journey-flow.five .th1nk-journey-phase:nth-child(5) { grid-column: auto; }
 }
 @media (max-width: 600px) { .th1nk-journey-flow.five { grid-template-columns: 1fr; } }
+
+
+/* ============================================================
+   -- 15b. JOURNEY — EIGHT-PHASE SINGLE ROW  (.th1nk-journey-flow.eight)
+   Source: leadership-style.html. All eight phases on one non-wrapping row;
+   horizontal scroll strip on mobile.
+   ============================================================ */
+
+.th1nk-journey-flow.eight {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  align-items: start;
+  flex-wrap: nowrap;
+}
+.th1nk-journey-flow.eight .th1nk-journey-phase {
+  max-width: none;
+  min-width: 0;
+  padding: 0 0.5rem;
+}
+.th1nk-journey-flow.eight .th1nk-journey-phase h3 {
+  font-size: 0.82rem;
+}
+.th1nk-journey-flow.eight .th1nk-phase-num {
+  width: 48px;
+  height: 48px;
+  font-size: 0.9rem;
+}
+@media (max-width: 900px) {
+  .th1nk-journey-flow.eight {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+  }
+  .th1nk-journey-flow.eight .th1nk-journey-phase {
+    flex: 0 0 120px;
+    min-width: 120px;
+  }
+}
 
 
 /* ============================================================
@@ -1144,6 +1185,11 @@
 .th1nk-persona-card-body::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); }
 .th1nk-persona-card h3 { font-size: 1rem; color: var(--navy); margin-bottom: 0.5rem; }
 .th1nk-persona-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+/* Equal-height cards when wrapped in a whole-card link: the anchor is the grid
+   item and already stretches to the row height, so pass that height to the card.
+   (The anchor keeps its inline display:block; we rely on height, not flex.) */
+.th1nk-persona-grid > a { height: 100%; }
+.th1nk-persona-grid > a > .th1nk-persona-card { height: 100%; }
 
 
 /* ============================================================
@@ -1481,6 +1527,98 @@
 .th1nk-calendar-btn-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
 .th1nk-calendar-btn { display: inline-block; padding: 0.65rem 1.5rem; background: rgba(89,192,217,0.15); border: 1px solid rgba(89,192,217,0.4); border-radius: 8px; color: var(--teal); font-size: 0.85rem; font-weight: 600; text-decoration: none; letter-spacing: 0.03em; transition: background 0.2s; }
 .th1nk-calendar-btn:hover { background: rgba(89,192,217,0.25); }
+
+
+/* ============================================================
+   -- 40. CONTENT TABLE   Source: team-mapping (people content/blog pages)
+   Semantic data table for content/blog-style pages. Token colours only.
+   Wrap the <table> in .th1nk-table-wrap for horizontal scroll on small screens.
+   ============================================================ */
+
+.th1nk-table-wrap { overflow-x: auto; margin: 2rem 0; -webkit-overflow-scrolling: touch; }
+.th1nk-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.th1nk-table th,
+.th1nk-table td {
+  border: 1px solid var(--border);
+  padding: 0.75rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.th1nk-table thead th {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.th1nk-table tbody td { color: var(--charcoal); }
+.th1nk-table tbody td:first-child {
+  background: var(--panel);
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+/* Mobile: stack each row as a card. Avoids the Android-Chrome overflow-x
+   collapse that can make the whole table vanish on narrow viewports.
+   No HTML change needed: the first cell of each row acts as the card heading. */
+@media (max-width: 640px) {
+  .th1nk-table-wrap { overflow-x: visible; }
+  .th1nk-table { display: block; font-size: 0.95rem; }
+  .th1nk-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .th1nk-table tbody { display: block; }
+  .th1nk-table tbody tr {
+    display: block;
+    margin: 0 0 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md, 8px);
+    overflow: hidden;
+  }
+  .th1nk-table tbody td {
+    display: block;
+    border: 0;
+    border-top: 1px solid var(--border);
+    white-space: normal;
+    padding: 0.6rem 0.9rem;
+  }
+  .th1nk-table tbody td:first-child {
+    border-top: 0;
+    white-space: normal;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.02em;
+  }
+}
+
+
+/* ============================================================
+   -- 41. PROSE / READING COLUMN   Source: team-mapping, team-diversity, profile pages
+   Single readable column for content/blog-style pages. Token colours only.
+   ============================================================ */
+
+.th1nk-prose { max-width: 760px; margin: 0 auto; }
+.th1nk-prose > p { font-size: 1.0625rem; color: var(--charcoal); line-height: 1.8; margin-bottom: 1.25rem; }
+.th1nk-prose > p:last-child { margin-bottom: 0; }
+.th1nk-prose > h2 { color: var(--navy); font-size: clamp(1.4rem, 2.4vw, 1.75rem); margin: 2.75rem 0 1rem; }
+.th1nk-prose > h3 { color: var(--navy); font-size: 1.2rem; margin: 2rem 0 0.75rem; }
+.th1nk-prose a { color: var(--color-link); font-weight: 600; }
+.th1nk-prose a:hover { color: var(--teal); }
+.th1nk-prose img { width: 100%; border-radius: var(--r-lg); box-shadow: var(--shadow-web); display: block; margin: 1.5rem 0; }
+.th1nk-prose .th1nk-marker-list { margin: 1.25rem 0; }
+
+
+/* ============================================================
+   -- 42. FLAT MODIFIER   Source: high-performance-teams
+   Strips elevation/hover affordances from a card that is informational,
+   not a link or button. Apply alongside any card class, e.g.
+   class="th1nk-char-card th1nk-flat". Keeps fills and flat borders.
+   ============================================================ */
+
+.th1nk-flat { box-shadow: none; transform: none; transition: none; cursor: default; }
+.th1nk-flat:hover { box-shadow: none; transform: none; }
 
 
 /* ============================================================
