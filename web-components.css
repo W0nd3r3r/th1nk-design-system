@@ -1491,10 +1491,11 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: var(--white);
+  border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 1.5rem 1.75rem;
+  box-shadow: var(--shadow-sm-web);
 }
 .th1nk-question-num {
   flex-shrink: 0;
@@ -1514,7 +1515,7 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1.25rem;
-  color: #fff;
+  color: var(--navy);
   line-height: 1.4;
   margin: 0;
 }
@@ -1523,7 +1524,7 @@
   margin: 2.5rem auto 0;
   text-align: center;
   font-size: 1.05rem;
-  color: rgba(255,255,255,0.75);
+  color: var(--muted);
   line-height: 1.7;
 }
 .th1nk-question-payoff {
