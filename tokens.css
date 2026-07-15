@@ -80,6 +80,13 @@
   --space-xxl:   clamp(50px, 7vw, 90px);
   --space-xxxl:  clamp(70px, 10vw, 140px);
 
+  /* Deck slide safe area (added 15 Jul 2026) — no slide content may sit
+     inside these margins on a 1920×1080 stage. The bottom value clears the
+     th1nk-slide-foot footer (absolute, bottom: 48px). */
+  --slide-safe-x:      120px;
+  --slide-safe-top:    80px;
+  --slide-safe-bottom: 130px;
+
   /* Page content max-widths */
   --max-content:  800px;
   --max-wide:     1340px;

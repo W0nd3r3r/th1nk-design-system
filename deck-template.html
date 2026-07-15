@@ -33,8 +33,13 @@
     <div class="th1nk-slide-foot on-dark"><span class="brand">th1nk</span><span class="sep"></span><span>02 / 00</span></div>
   </section>
 
-  <!-- SLIDE 03 · Content slide (example: three cards) -->
-  <section data-slide="3" style="padding: var(--space-xl);">
+  <!-- SLIDE 03 · Content slide (example: three cards)
+       Every content slide MUST carry .th1nk-slide-safe (or replicate its
+       padding). No content may sit inside the safe-area margins
+       (--slide-safe-x / --slide-safe-top / --slide-safe-bottom); the bottom
+       margin clears the th1nk-slide-foot footer. Check component blocks
+       (cards, grids, callouts) end clear of the footer before shipping. -->
+  <section class="th1nk-slide-safe" data-slide="3">
     <div class="th1nk-amber-bar"></div>
     <p class="th1nk-eyebrow-slide"><!-- REPLACE: eyebrow --></p>
     <h2 class="th1nk-slide-title"><!-- REPLACE: Slide heading --></h2>

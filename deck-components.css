@@ -6,6 +6,20 @@
  * DO NOT use for web pages — use web-components.css instead
  */
 /* ============================================================
+   -- 12b. SLIDE SAFE AREA (added 15 Jul 2026)
+   Every slide's content must respect the safe-area margins.
+   Nothing may render inside --slide-safe-x of the left/right
+   edges, --slide-safe-top of the top edge, or --slide-safe-bottom
+   of the bottom edge (which clears the th1nk-slide-foot footer
+   at bottom: 48px). Apply .th1nk-slide-safe to every content
+   <section>, or replicate its padding explicitly.
+   ============================================================ */
+
+.th1nk-slide-safe {
+  padding: var(--slide-safe-top, 80px) var(--slide-safe-x, 120px) var(--slide-safe-bottom, 130px);
+}
+
+/* ============================================================
    â”€â”€ 13. SLIDE: COVER
    Source: HPT deck (high-performance-team.html)
    ============================================================ */
@@ -15,6 +29,12 @@
   color: var(--navy);
   position: relative;
   overflow: hidden;
+  /* Safe-area padding + vertical centring (added 15 Jul 2026) —
+     cover content must never hug the top-left corner. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--slide-safe-top, 80px) var(--slide-safe-x, 120px) var(--slide-safe-bottom, 130px);
 }
 /* Amber wash glow â€” decorative */
 .th1nk-slide-cover .wash {
